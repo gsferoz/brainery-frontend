@@ -6,6 +6,11 @@ import { BaseComponent } from './views/theme/base/base.component';
 import { ErrorPageComponent } from './views/theme/content/error-page/error-page.component';
 // Auth
 import { AuthGuard } from './core/auth';
+import { UsersComponent } from './views/pages/users/users.component';
+import { CoachingCentersComponent } from './views/pages/coaching-centers/coaching-centers.component';
+import { BatchesComponent } from './views/pages/batches/batches.component';
+import { BatchStudentsComponent } from './views/pages/batch-students/batch-students.component';
+import { LocationsComponent } from './views/pages/locations/locations.component';
 
 const routes: Routes = [
 	{path: 'auth', loadChildren: () => import('app/views/pages/auth/auth.module').then(m => m.AuthModule)},
@@ -20,13 +25,33 @@ const routes: Routes = [
 				loadChildren: () => import('app/views/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
 			},
 			{
-				path: 'mail',
-				loadChildren: () => import('app/views/pages/apps/mail/mail.module').then(m => m.MailModule)
+				path: 'users',
+				component: UsersComponent
 			},
 			{
-				path: 'ecommerce',
-				loadChildren: () => import('app/views/pages/apps/e-commerce/e-commerce.module').then(m => m.ECommerceModule),
+				path: 'coaching_centres',
+				component: CoachingCentersComponent
 			},
+			{
+				path: 'batches',
+				component: BatchesComponent
+			},
+			{
+				path: 'batch_students',
+				component: BatchStudentsComponent
+			},
+			{
+				path: 'locations',
+				component: LocationsComponent
+			},
+			// {
+			// 	path: 'mail',
+			// 	loadChildren: () => import('app/views/pages/apps/mail/mail.module').then(m => m.MailModule)
+			// },
+			// {
+			// 	path: 'ecommerce',
+			// 	loadChildren: () => import('app/views/pages/apps/e-commerce/e-commerce.module').then(m => m.ECommerceModule),
+			// },
 			{
 				path: 'ngbootstrap',
 				loadChildren: () => import('app/views/pages/ngbootstrap/ngbootstrap.module').then(m => m.NgbootstrapModule)
@@ -35,10 +60,10 @@ const routes: Routes = [
 				path: 'material',
 				loadChildren: () => import('app/views/pages/material/material.module').then(m => m.MaterialModule)
 			},
-			{
-				path: 'user-management',
-				loadChildren: () => import('app/views/pages/user-management/user-management.module').then(m => m.UserManagementModule)
-			},
+			// {
+			// 	path: 'user-management',
+			// 	loadChildren: () => import('app/views/pages/user-management/user-management.module').then(m => m.UserManagementModule)
+			// },
 			{
 				path: 'wizard',
 				loadChildren: () => import('app/views/pages/wizard/wizard.module').then(m => m.WizardModule)

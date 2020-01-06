@@ -279,22 +279,7 @@ export class MenuConfig {
 					alignment: 'left',
 					toggle: 'click',
 					submenu: [
-						{
-							title: 'eCommerce',
-							bullet: 'dot',
-							icon: 'flaticon-business',
-							permission: 'accessToECommerceModule',
-							submenu: [
-								{
-									title: 'Customers',
-									page: '/ecommerce/customers'
-								},
-								{
-									title: 'Products',
-									page: '/ecommerce/products'
-								},
-							]
-						},
+						
 						{
 							title: 'User Management',
 							bullet: 'dot',
@@ -385,6 +370,46 @@ export class MenuConfig {
 					icon: 'flaticon2-architecture-and-city',
 					page: '/dashboard',
 					translate: 'MENU.DASHBOARD',
+					bullet: 'dot',
+				},
+				{
+					title: 'Users',
+					root: true,
+					icon: 'flaticon2-architecture-and-city',
+					page: '/users',
+					translate: 'MENU.USERS',
+					bullet: 'dot',
+				},
+				{
+					title: 'Coaching Centres',
+					root: true,
+					icon: 'flaticon2-architecture-and-city',
+					page: '/coaching_centres',
+					translate: 'MENU.COACHING_CENTRE',
+					bullet: 'dot',
+				},
+				{
+					title: 'Batches',
+					root: true,
+					icon: 'flaticon2-architecture-and-city',
+					page: '/batches',
+					translate: 'MENU.BATCHES',
+					bullet: 'dot',
+				},
+				{
+					title: 'Batch Students',
+					root: true,
+					icon: 'flaticon2-architecture-and-city',
+					page: '/batch_students',
+					translate: 'MENU.BATCH_STUDENTS',
+					bullet: 'dot',
+				},
+				{
+					title: 'Locations',
+					root: true,
+					icon: 'flaticon2-architecture-and-city',
+					page: '/locations',
+					translate: 'MENU.LOCATIONS',
 					bullet: 'dot',
 				},
 				{
@@ -652,23 +677,6 @@ export class MenuConfig {
 					]
 				},
 				{section: 'Applications'},
-				{
-					title: 'eCommerce',
-					bullet: 'dot',
-					icon: 'flaticon2-list-2',
-					root: true,
-					permission: 'accessToECommerceModule',
-					submenu: [
-						{
-							title: 'Customers',
-							page: '/ecommerce/customers'
-						},
-						{
-							title: 'Products',
-							page: '/ecommerce/products'
-						},
-					]
-				},
 				{
 					title: 'User Management',
 					root: true,

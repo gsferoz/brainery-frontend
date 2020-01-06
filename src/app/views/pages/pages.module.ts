@@ -7,13 +7,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { PartialsModule } from '../partials/partials.module';
 // Pages
 import { CoreModule } from '../../core/core.module';
-import { MailModule } from './apps/mail/mail.module';
-import { ECommerceModule } from './apps/e-commerce/e-commerce.module';
-import { UserManagementModule } from './user-management/user-management.module';
+// import { MailModule } from './apps/mail/mail.module';
+// import { ECommerceModule } from './apps/e-commerce/e-commerce.module';
+// import { UserManagementModule } from './user-management/user-management.module';
 import { MyPageComponent } from './my-page/my-page.component';
+import { UsersComponent } from './users/users.component';
+import { CoachingCentersComponent } from './coaching-centers/coaching-centers.component';
+import { BatchesComponent } from './batches/batches.component';
+import { BatchStudentsComponent } from './batch-students/batch-students.component';
+import { LocationsComponent } from './locations/locations.component';
 
 @NgModule({
-	declarations: [MyPageComponent],
+	declarations: [MyPageComponent, UsersComponent, CoachingCentersComponent, BatchesComponent, BatchStudentsComponent, LocationsComponent],
 	exports: [],
 	imports: [
 		CommonModule,
@@ -21,9 +26,9 @@ import { MyPageComponent } from './my-page/my-page.component';
 		FormsModule,
 		CoreModule,
 		PartialsModule,
-		MailModule,
-		ECommerceModule,
-		UserManagementModule,
+		// MailModule,
+		// ECommerceModule,
+		// UserManagementModule,
 	],
 	providers: []
 })
