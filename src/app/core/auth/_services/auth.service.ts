@@ -8,8 +8,9 @@ import { catchError, map } from 'rxjs/operators';
 import { QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { API_ENDPOINT_MAIN_DORMAIN } from './../../_config/index';
 
-const API_USERS_URL = 'api/users';
+const API_USERS_URL = `${API_ENDPOINT_MAIN_DORMAIN}/api/v1/authentication/login`;
 const API_PERMISSION_URL = 'api/permissions';
 const API_ROLES_URL = 'api/roles';
 
@@ -18,7 +19,13 @@ export class AuthService {
     constructor(private http: HttpClient) {}
     // Authentication/Authorization
     login(email: string, password: string): Observable<User> {
-        return this.http.post<User>(API_USERS_URL, { email, password });
+        var data = {
+            "user": {
+                "email": email,
+                "password": password
+            }
+        };
+        return this.http.post<User>(API_USERS_URL, data);
     }
 
     getUserByToken(): Observable<User> {
