@@ -9,6 +9,8 @@ import { SparklineChartOptions } from '../../../../../core/_base/layout';
 export class Widget26Component implements OnInit {
 
 	@Input() value: string | number;
+	@Input() value1: string | number;
+	@Input() value2: string | number;
 	@Input() desc: string;
 	@Input() options: SparklineChartOptions;
 

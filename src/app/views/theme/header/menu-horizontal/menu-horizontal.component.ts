@@ -6,9 +6,11 @@ import {
 	Component,
 	ElementRef,
 	OnInit,
-	Renderer2
+	Renderer2,
+	Input,
+	OnDestroy
 } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, NavigationStart, NavigationError, Event } from '@angular/router';
 // RxJS
 import { filter } from 'rxjs/operators';
 // Object-Path
@@ -19,10 +21,13 @@ import {
 	MenuConfigService,
 	MenuHorizontalService,
 	MenuOptions,
-	OffcanvasOptions
+	OffcanvasOptions,
+	PageConfigService
 } from '../../../../core/_base/layout';
 // HTML Class
 import { HtmlClassService } from '../../html-class.service';
+import { Breadcrumb, SubheaderService } from '../../../../core/_base/layout/services/subheader.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'kt-menu-horizontal',
@@ -30,9 +35,26 @@ import { HtmlClassService } from '../../html-class.service';
 	styleUrls: ['./menu-horizontal.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuHorizontalComponent implements OnInit, AfterViewInit {
+export class MenuHorizontalComponent implements OnInit, AfterViewInit, OnDestroy {
 	// Public properties
 	currentRouteUrl: any = '';
+
+	@Input() fluid = true;
+	@Input() clear = false;
+	layout: string;
+
+	today: number = Date.now();
+	title = '';
+	desc = '';
+	breadcrumbs: Breadcrumb[] = [];
+
+	private subscriptions: Subscription[] = [];
+
+	/**
+		 * Component constructor
+		 *
+		 * @param subheaderService: SubheaderService
+		 */
 
 	rootArrowEnabled: boolean;
 
@@ -78,8 +100,17 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
 		private layoutConfigService: LayoutConfigService,
 		private router: Router,
 		private render: Renderer2,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		public subheaderService: SubheaderService,
+		public pageconfigService: PageConfigService,
 	) {
+		this.title = this.pageconfigService.getCurrentPageConfig().page.title;
+		router.events.subscribe((event: Event) => {
+			if (event instanceof NavigationEnd) {
+				// Hide loading indicator
+				this.title = this.pageconfigService.getCurrentPageConfig().page.title;
+			}
+		});
 	}
 
 	/**
@@ -90,6 +121,7 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
 	 * After view init
 	 */
 	ngAfterViewInit(): void {
+
 	}
 
 	/**
@@ -105,6 +137,7 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
 				this.currentRouteUrl = this.router.url;
 				this.cdr.markForCheck();
 			});
+
 	}
 
 	/**
@@ -264,5 +297,9 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
 		}
 
 		return false;
+	}
+
+	ngOnDestroy(): void {
+		this.subscriptions.forEach(sb => sb.unsubscribe());
 	}
 }

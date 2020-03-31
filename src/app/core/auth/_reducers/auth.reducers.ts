@@ -46,7 +46,7 @@ export function authReducer(state = initialAuthState, action: AuthActions): Auth
             const _user: User = action.payload.user;
             return {
                 ...state,
-                user: _user,
+                user: _user['data'],
                 isUserLoaded: true
             };
         }

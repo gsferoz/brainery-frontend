@@ -110,9 +110,9 @@ export class CustomersListComponent implements OnInit, OnDestroy {
 		});
 		this.subscriptions.push(entitiesSubscription);
 		// First load
-		of(undefined).pipe(take(1), delay(1000)).subscribe(() => { // Remove this line, just loading imitation
+		// of(undefined).pipe(take(1), delay(1000)).subscribe(() => { // Remove this line, just loading imitation
 			this.loadCustomersList();
-		}); // Remove this line, just loading imitation
+		// }); // Remove this line, just loading imitation
 	}
 
 	/**

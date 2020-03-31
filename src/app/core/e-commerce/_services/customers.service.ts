@@ -7,8 +7,10 @@ import { Observable } from 'rxjs';
 import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 // Models
 import { CustomerModel } from '../_models/customer.model';
+import { API_ENDPOINT_MAIN_DORMAIN } from './../../_config/index';
 
-const API_CUSTOMERS_URL = 'api/customers';
+
+const API_CUSTOMERS_URL = '/api/v1/admin/coaching_centers';
 
 @Injectable()
 export class CustomersService {
@@ -23,7 +25,7 @@ export class CustomersService {
 
 	// READ
 	getAllCustomers(): Observable<CustomerModel[]> {
-		return this.http.get<CustomerModel[]>(API_CUSTOMERS_URL);
+		return this.http.get<CustomerModel[]>(API_ENDPOINT_MAIN_DORMAIN + API_CUSTOMERS_URL);
 	}
 
 	getCustomerById(customerId: number): Observable<CustomerModel> {
@@ -38,7 +40,7 @@ export class CustomersService {
 		const httpHeaders = this.httpUtils.getHTTPHeaders();
 		const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
-		const url = API_CUSTOMERS_URL + '/find';
+		const url = API_ENDPOINT_MAIN_DORMAIN + API_CUSTOMERS_URL;
 		return this.http.get<QueryResultsModel>(url, {
 			headers: httpHeaders,
 			params:  httpParams

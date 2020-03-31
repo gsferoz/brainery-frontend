@@ -16,9 +16,11 @@ import { CoachingCentersComponent } from './coaching-centers/coaching-centers.co
 import { BatchesComponent } from './batches/batches.component';
 import { BatchStudentsComponent } from './batch-students/batch-students.component';
 import { LocationsComponent } from './locations/locations.component';
+import { MatTableModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { CoursesComponent } from './courses/courses.component';
 
 @NgModule({
-	declarations: [MyPageComponent, UsersComponent, CoachingCentersComponent, BatchesComponent, BatchStudentsComponent, LocationsComponent],
+	declarations: [MyPageComponent, UsersComponent, CoachingCentersComponent, BatchesComponent, BatchStudentsComponent, LocationsComponent, CoursesComponent],
 	exports: [],
 	imports: [
 		CommonModule,
@@ -26,6 +28,12 @@ import { LocationsComponent } from './locations/locations.component';
 		FormsModule,
 		CoreModule,
 		PartialsModule,
+		MatTableModule,
+		MatIconModule,
+		MatButtonModule,
+		MatProgressSpinnerModule,
+		MatPaginatorModule,
+		MatSortModule
 		// MailModule,
 		// ECommerceModule,
 		// UserManagementModule,

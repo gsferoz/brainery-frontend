@@ -5,6 +5,8 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { debug } from 'util';
+import { environment } from './../../../../../environments/environment';
+
 
 /**
  * More information there => https://medium.com/@MetonymyQT/angular-http-interceptors-what-are-they-and-how-to-use-them-52e060321088
@@ -18,11 +20,11 @@ export class InterceptService implements HttpInterceptor {
 	): Observable<HttpEvent<any>> {
 		// tslint:disable-next-line:no-debugger
 		// modify request
-		// request = request.clone({
-		// 	setHeaders: {
-		// 		Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-		// 	}
-		// });
+		request = request.clone({
+			setHeaders: {
+				Authorization: `Bearer ${localStorage.getItem(environment.authTokenKey)}`
+			}
+		});
 		// console.log('----request----');
 		// console.log(request);
 		// console.log('--- end of request---');

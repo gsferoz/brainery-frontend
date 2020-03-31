@@ -6,6 +6,44 @@ export class PageConfig {
 				'desc': 'Latest updates and statistic charts'
 			},
 		},
+		courses: {
+			page: {
+				'title': 'Courses',
+				'desc': 'Latest courses and updates'
+			},
+		},
+		users: {
+			page: {
+				'title': 'Users',
+				'desc': 'Users List'
+			},
+		},
+		coaching_centres: {
+			page: {
+				'title': 'Coaching Centers',
+				'desc': 'Couching Centers List'
+			},
+		},
+		batches: {
+			page: {
+				'title': 'Batches',
+				'desc': 'Batches List'
+			},
+		},
+		batch_students: {
+			page: {
+				'title': 'Batch Students',
+				'desc': 'Batch Students List'
+			},
+		},
+		locations: {
+			page: {
+				'title': 'Locations',
+				'desc': 'Locations List'
+			},
+		},
+
+
 		ngbootstrap: {
 			accordion: {
 				page: {title: 'Accordion', desc: ''}

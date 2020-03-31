@@ -18,6 +18,7 @@ export const locale = {
 			BATCHES: 'Batches',
 			BATCH_STUDENTS: 'Batch Students',
 			LOCATIONS: 'Locations',
+			COURSES: 'Courses'
 		},
 		AUTH: {
 			GENERAL: {

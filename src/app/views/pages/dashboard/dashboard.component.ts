@@ -1,11 +1,13 @@
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 // Lodash
 import { shuffle } from 'lodash';
 // Services
 // Widgets model
 import { LayoutConfigService, SparklineChartOptions } from '../../../core/_base/layout';
 import { Widget4Data } from '../../partials/content/widgets/widget4/widget4.component';
+import { CoursesService } from './../../../core/e-commerce/_services/courses.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'kt-dashboard',
@@ -13,40 +15,24 @@ import { Widget4Data } from '../../partials/content/widgets/widget4/widget4.comp
 	styleUrls: ['dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-	chartOptions1: SparklineChartOptions;
-	chartOptions2: SparklineChartOptions;
-	chartOptions3: SparklineChartOptions;
-	chartOptions4: SparklineChartOptions;
+
 	widget4_1: Widget4Data;
 	widget4_2: Widget4Data;
 	widget4_3: Widget4Data;
 	widget4_4: Widget4Data;
 
-	constructor(private layoutConfigService: LayoutConfigService) {
+	subscription: Subscription;
+
+	dashboardData: any;
+
+	constructor(private layoutConfigService: LayoutConfigService, private courseService: CoursesService,
+		private ref: ChangeDetectorRef) {
+			setInterval(() => {
+				this.ref.markForCheck();
+			  }, 1000);
 	}
 
 	ngOnInit(): void {
-		this.chartOptions1 = {
-			data: [10, 14, 18, 11, 9, 12, 14, 17, 18, 14],
-			color: this.layoutConfigService.getConfig('colors.state.brand'),
-			border: 3
-		};
-		this.chartOptions2 = {
-			data: [11, 12, 18, 13, 11, 12, 15, 13, 19, 15],
-			color: this.layoutConfigService.getConfig('colors.state.danger'),
-			border: 3
-		};
-		this.chartOptions3 = {
-			data: [12, 12, 18, 11, 15, 12, 13, 16, 11, 18],
-			color: this.layoutConfigService.getConfig('colors.state.success'),
-			border: 3
-		};
-		this.chartOptions4 = {
-			data: [11, 9, 13, 18, 13, 15, 14, 13, 18, 15],
-			color: this.layoutConfigService.getConfig('colors.state.primary'),
-			border: 3
-		};
-
 		// @ts-ignore
 		this.widget4_1 = shuffle([
 			{
@@ -194,5 +180,14 @@ export class DashboardComponent implements OnInit {
 				valueColor: 'kt-font-brand'
 			},
 		]);
+		this.getDashboardData();
+	}
+
+	getDashboardData() {
+		this.subscription = this.courseService.getDashboardData().subscribe( data => {
+			var loadData: any = data.data;
+			console.log(loadData);
+			this.dashboardData = loadData;
+		});
 	}
 }

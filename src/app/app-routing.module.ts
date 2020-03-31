@@ -11,6 +11,7 @@ import { CoachingCentersComponent } from './views/pages/coaching-centers/coachin
 import { BatchesComponent } from './views/pages/batches/batches.component';
 import { BatchStudentsComponent } from './views/pages/batch-students/batch-students.component';
 import { LocationsComponent } from './views/pages/locations/locations.component';
+import { CoursesComponent } from './views/pages/courses/courses.component';
 
 const routes: Routes = [
 	{path: 'auth', loadChildren: () => import('app/views/pages/auth/auth.module').then(m => m.AuthModule)},
@@ -43,6 +44,10 @@ const routes: Routes = [
 			{
 				path: 'locations',
 				component: LocationsComponent
+			},
+			{
+				path: 'courses',
+				component: CoursesComponent
 			},
 			// {
 			// 	path: 'mail',

@@ -17,8 +17,8 @@ import { AuthNoticeService, AuthService, Login } from '../../../../core/auth';
  * ! Just example => Should be removed in development
  */
 const DEMO_PARAMS = {
-	EMAIL: 'admin@demo.com',
-	PASSWORD: 'demo'
+	EMAIL: 'admin@brainery.com',
+	PASSWORD: 'solaris2009'
 };
 
 @Component({
@@ -95,13 +95,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 * Default params, validators
 	 */
 	initLoginForm() {
-		// demo message to show
-		if (!this.authNoticeService.onNoticeChanged$.getValue()) {
-			const initialNotice = `Use account
-			<strong>${DEMO_PARAMS.EMAIL}</strong> and password
-			<strong>${DEMO_PARAMS.PASSWORD}</strong> to continue.`;
-			this.authNoticeService.setNotice(initialNotice, 'info');
-		}
 
 		this.loginForm = this.fb.group({
 			email: [DEMO_PARAMS.EMAIL, Validators.compose([
@@ -142,21 +135,29 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.auth
 			.login(authData.email, authData.password)
 			.pipe(
-				tap(user => {
-					if (user) {
-						this.store.dispatch(new Login({authToken: user.accessToken}));
+				tap(data => {
+					if (data) {
+						this.store.dispatch(new Login({authToken: data['data'].authentication_token, userData: JSON.stringify(data['data'])}));
 						this.router.navigateByUrl(this.returnUrl); // Main page
 					} else {
 						this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
 					}
 				}),
+				// tslint:disable-next-line: indent
 				takeUntil(this.unsubscribe),
 				finalize(() => {
 					this.loading = false;
 					this.cdr.markForCheck();
 				})
 			)
-			.subscribe();
+			.subscribe(data => console.log(data),
+			error =>
+			{
+				console.log(error);
+				if(error.status === 409) {
+					this.authNoticeService.setNotice(error.error.message, 'danger');
+				}
+			}, () => {} );
 	}
 
 	/**

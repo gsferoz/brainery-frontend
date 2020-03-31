@@ -7,11 +7,11 @@ export class User extends BaseModel {
     username: string;
     password: string;
     email: string;
-    accessToken: string;
+    authentication_token: string;
     refreshToken: string;
     roles: number[];
     pic: string;
-    fullname: string;
+    full_name: string;
     occupation: string;
 	companyName: string;
 	phone: string;
@@ -24,8 +24,8 @@ export class User extends BaseModel {
         this.password = '';
         this.email = '';
         this.roles = [];
-        this.fullname = '';
-        this.accessToken = 'access-token-' + Math.random();
+        this.full_name = '';
+        this.authentication_token = 'access-token-' + Math.random();
         this.refreshToken = 'access-token-' + Math.random();
         this.pic = './assets/media/users/default.jpg';
         this.occupation = '';
