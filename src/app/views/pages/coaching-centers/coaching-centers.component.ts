@@ -1,11 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/reducers';
-import { CustomersPageRequested, CustomersDataSource, CustomerModel } from '../../../core/e-commerce';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { skip, distinctUntilChanged } from 'rxjs/operators';
-import { QueryParamsModel } from '../../../core/_base/crud';
 import { CoursesService } from '../../../core/e-commerce/_services/courses.service';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 
 @Component({
@@ -18,13 +14,14 @@ export class CoachingCentersComponent implements OnInit {
 // Subscriptions
 private subscriptions: Subscription[] = [];
 dataSource: any[] = [];
-customersResult: any[] = [];
 loading = false;
 displayedColumns = ['id', 'name', 'centre_code', 'city', 'country', 'contact', 'status', 'actions' ];
+dataSource1: MatTableDataSource<any>;
+
+@ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
-  constructor(private store: Store<AppState>, private coursesservice: CoursesService,
-	private ref: ChangeDetectorRef) {
+  constructor( private coursesservice: CoursesService, private ref: ChangeDetectorRef) {
 		setInterval(() => {
 			this.ref.markForCheck();
 		  }, 1000);
@@ -39,7 +36,8 @@ displayedColumns = ['id', 'name', 'centre_code', 'city', 'country', 'contact', '
 	const coachingcentersubscripition = this.coursesservice.getAllCoachingcentres().subscribe(data => {
 	const vardata: any = data.data;
 	this.dataSource = vardata;
-	console.log(vardata);
+	this.dataSource1 = new MatTableDataSource(this.dataSource);
+	this.dataSource1.sort = this.sort;
 	this.loading = false;
 	});
 	this.subscriptions.push(coachingcentersubscripition);

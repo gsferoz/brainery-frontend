@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CoursesService } from './../../../core/e-commerce/_services/courses.service';
 import { Subscription } from 'rxjs';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'kt-users',
@@ -13,6 +14,9 @@ export class UsersComponent implements OnInit {
 	dataSource: any[] = [];
 	loading = false;
 	displayedColumns = ['id', 'name', 'email', 'mobile', 'country', 'gender', 'status', 'actions' ];
+	dataSource1: MatTableDataSource<any>;
+
+	@ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private courseservice: CoursesService, private ref: ChangeDetectorRef) {
 	setInterval(() => {
@@ -30,6 +34,8 @@ export class UsersComponent implements OnInit {
 		var loadData:any = data.data;
 		console.log(loadData);
 		this.dataSource = loadData;
+		this.dataSource1 = new MatTableDataSource(this.dataSource);
+		this.dataSource1.sort = this.sort;
 		this.loading = false;
 	})
   }

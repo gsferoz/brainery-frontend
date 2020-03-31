@@ -39,6 +39,18 @@ export class CoursesService {
 		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.USERS);
 	}
 
+	getBatchesList(): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.BATCHES);
+	}
+
+	getLocationsList(): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.LOCATION);
+	}
+
+	getCourseList(): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COURSES);
+	}
+
 	getProductById(productId: number): Observable<ProductModel> {
 		return this.http.get<ProductModel>(API_PRODUCTS_URL + `/${productId}`);
 	}

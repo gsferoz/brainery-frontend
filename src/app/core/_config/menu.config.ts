@@ -396,12 +396,20 @@ export class MenuConfig {
 					translate: 'MENU.BATCHES',
 					bullet: 'dot',
 				},
+				// {
+				// 	title: 'Batch Students',
+				// 	root: true,
+				// 	icon: 'flaticon2-avatar',
+				// 	page: '/batch_students',
+				// 	translate: 'MENU.BATCH_STUDENTS',
+				// 	bullet: 'dot',
+				// },
 				{
-					title: 'Batch Students',
+					title: 'Courses',
 					root: true,
-					icon: 'flaticon2-avatar',
-					page: '/batch_students',
-					translate: 'MENU.BATCH_STUDENTS',
+					icon: 'flaticon2-open-text-book',
+					page: '/courses',
+					translate: 'MENU.COURSES',
 					bullet: 'dot',
 				},
 				{
@@ -412,14 +420,7 @@ export class MenuConfig {
 					translate: 'MENU.LOCATIONS',
 					bullet: 'dot',
 				},
-				{
-					title: 'Courses',
-					root: true,
-					icon: 'flaticon2-open-text-book',
-					page: '/courses',
-					translate: 'MENU.COURSES',
-					bullet: 'dot',
-				},
+
 				// {
 				// 	title: 'Layout Builder',
 				// 	root: true,
