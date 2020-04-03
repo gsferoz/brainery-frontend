@@ -384,7 +384,7 @@ export class MenuConfig {
 					title: 'Coaching Centres',
 					root: true,
 					icon: 'flaticon-buildings',
-					page: '/coaching_centres',
+					page: '/coaching_center',
 					translate: 'MENU.COACHING_CENTRE',
 					bullet: 'dot',
 				},
@@ -410,6 +410,14 @@ export class MenuConfig {
 					icon: 'flaticon2-open-text-book',
 					page: '/courses',
 					translate: 'MENU.COURSES',
+					bullet: 'dot',
+				},
+				{
+					title: 'Subjects',
+					root: true,
+					icon: 'flaticon2-open-text-book',
+					page: '/subjects',
+					translate: 'MENU.SUBJECTS',
 					bullet: 'dot',
 				},
 				{

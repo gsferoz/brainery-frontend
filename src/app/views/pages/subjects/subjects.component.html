@@ -1,18 +1,15 @@
 <div class="row">
     <div class="col-xl-12">
         <kt-portlet [class]="'kt-portlet--height-fluid'">
-            <kt-portlet-header [title]="'Coaching Center List'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
+            <kt-portlet-header [title]="'Subjects List'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
                 <ng-container ktPortletTools>
-					<!-- <kt-context-menu></kt-context-menu> -->
-					<button mat-raised-button color="primary" [routerLink]="['/coaching_center/create']">Create</button>&nbsp;
+                    <kt-context-menu></kt-context-menu>
                 </ng-container>
             </kt-portlet-header>
             <kt-portlet-body [class]="'kt-portlet__body--fit'">
                 <!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
 <div perfectScrollbar [ngStyle]="{'max-height': '56vh', 'position': 'relative'}" class="mat-table__wrapper mat-table__wrapper--dashboard mb-4">
-	<!-- Checkbox Column -->
-	<!-- Table with selection -->
-	<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+
 	<table mat-table class="lmat-elevation-z8" [dataSource]="dataSource1" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
 		<ng-container matColumnDef="id">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
@@ -24,24 +21,29 @@
 			<td mat-cell *matCellDef="let product">{{product.name}}</td>
 		</ng-container>
 
-		<ng-container matColumnDef="centre_code">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header>Center Code</th>
-			<td mat-cell *matCellDef="let product">{{product.center_code}}</td>
+		<ng-container matColumnDef="subject_name">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Subject Name</th>
+			<td mat-cell *matCellDef="let product">{{product.subject_name}}</td>
 		</ng-container>
 
-		<ng-container matColumnDef="contact">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header>Contact</th>
-			<td mat-cell *matCellDef="let product">{{product.contact_number}}</td>
+		<ng-container matColumnDef="subject_code">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Subject Code</th>
+			<td mat-cell *matCellDef="let product">{{product.subject_code}}</td>
 		</ng-container>
 
-		<ng-container matColumnDef="city">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
-			<td mat-cell *matCellDef="let product">{{product.city}}</td>
+		<ng-container matColumnDef="description">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+			<td mat-cell *matCellDef="let product">{{product.description}}</td>
 		</ng-container>
 
-		<ng-container matColumnDef="country">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
-			<td mat-cell *matCellDef="let product">{{product.country}}</td>
+		<ng-container matColumnDef="prefix">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Prefix</th>
+			<td mat-cell *matCellDef="let product">{{product.prefix}}</td>
+		</ng-container>
+
+		<ng-container matColumnDef="subject_tag_line">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Subject Tag line</th>
+			<td mat-cell *matCellDef="let product">{{product.subject_tag_line}}</td>
 		</ng-container>
 
 		<ng-container matColumnDef="status">

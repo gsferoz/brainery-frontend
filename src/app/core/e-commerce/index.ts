@@ -3,6 +3,7 @@ export { ECommerceDataContext } from './_server/_e-commerce.data-context';
 
 // Models and Consts
 export { CustomerModel } from './_models/customer.model';
+export { CoachingCentreModel } from './_models/coaching_center.model';
 export { ProductRemarkModel } from './_models/product-remark.model';
 export { ProductSpecificationModel } from './_models/product-specification.model';
 export { ProductModel } from './_models/product.model';

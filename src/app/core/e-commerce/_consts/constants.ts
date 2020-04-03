@@ -5,5 +5,6 @@ export const apiEnpoints = {
 	USERS: '/users',
 	BATCHES: '/batches',
 	LOCATION: '/locations',
-	COURSES: '/courses'
+	COURSES: '/courses',
+	SUBJECTS: '/subjects'
 }

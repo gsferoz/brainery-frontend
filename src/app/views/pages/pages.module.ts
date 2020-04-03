@@ -12,15 +12,13 @@ import { CoreModule } from '../../core/core.module';
 // import { UserManagementModule } from './user-management/user-management.module';
 import { MyPageComponent } from './my-page/my-page.component';
 import { UsersComponent } from './users/users.component';
-import { CoachingCentersComponent } from './coaching-centers/coaching-centers.component';
-import { BatchesComponent } from './batches/batches.component';
 import { BatchStudentsComponent } from './batch-students/batch-students.component';
 import { LocationsComponent } from './locations/locations.component';
-import { MatTableModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, MatPaginatorModule, MatSortModule } from '@angular/material';
-import { CoursesComponent } from './courses/courses.component';
+import { MatTableModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, MatPaginatorModule, MatSortModule, MatTooltipModule } from '@angular/material';
+import { SubjectsComponent } from './subjects/subjects.component';
 
 @NgModule({
-	declarations: [MyPageComponent, UsersComponent, CoachingCentersComponent, BatchesComponent, BatchStudentsComponent, LocationsComponent, CoursesComponent],
+	declarations: [MyPageComponent, UsersComponent, BatchStudentsComponent, LocationsComponent, SubjectsComponent],
 	exports: [],
 	imports: [
 		CommonModule,
@@ -33,7 +31,8 @@ import { CoursesComponent } from './courses/courses.component';
 		MatButtonModule,
 		MatProgressSpinnerModule,
 		MatPaginatorModule,
-		MatSortModule
+		MatSortModule,
+		MatTooltipModule,
 		// MailModule,
 		// ECommerceModule,
 		// UserManagementModule,

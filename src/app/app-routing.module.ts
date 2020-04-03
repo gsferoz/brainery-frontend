@@ -12,6 +12,7 @@ import { BatchesComponent } from './views/pages/batches/batches.component';
 import { BatchStudentsComponent } from './views/pages/batch-students/batch-students.component';
 import { LocationsComponent } from './views/pages/locations/locations.component';
 import { CoursesComponent } from './views/pages/courses/courses.component';
+import { SubjectsComponent } from './views/pages/subjects/subjects.component';
 
 const routes: Routes = [
 	{path: 'auth', loadChildren: () => import('app/views/pages/auth/auth.module').then(m => m.AuthModule)},
@@ -26,16 +27,20 @@ const routes: Routes = [
 				loadChildren: () => import('app/views/pages/dashboard/dashboard.module').then(m => m.DashboardModule)
 			},
 			{
-				path: 'users',
-				component: UsersComponent
-			},
-			{
-				path: 'coaching_centres',
-				component: CoachingCentersComponent
+				path: 'coaching_center',
+				loadChildren: () => import('app/views/pages/coaching-centers/coaching-centre.module').then(m => m.CoachingCenterModule)
 			},
 			{
 				path: 'batches',
-				component: BatchesComponent
+				loadChildren: () => import('app/views/pages/batches/batches.module').then(m => m.BatchesModule)
+			},
+			{
+				path: 'courses',
+				loadChildren: () => import('app/views/pages/courses/courses.module').then(m => m.CoursesModule)
+			},
+			{
+				path: 'users',
+				component: UsersComponent
 			},
 			{
 				path: 'batch_students',
@@ -46,8 +51,8 @@ const routes: Routes = [
 				component: LocationsComponent
 			},
 			{
-				path: 'courses',
-				component: CoursesComponent
+				path: 'subjects',
+				component: SubjectsComponent
 			},
 			// {
 			// 	path: 'mail',

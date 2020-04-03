@@ -21,9 +21,23 @@ export class CoursesService {
 		private httpUtils: HttpUtilsService) { }
 
 	// CREATE =>  POST: add a new product to the server
-	createProduct(product): Observable<ProductModel> {
+
+	createCoachingCenter(data): Observable<any> {
 		const httpHeaders = this.httpUtils.getHTTPHeaders();
-		return this.http.post<ProductModel>(API_PRODUCTS_URL, product, { headers: httpHeaders });
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COACHING_CENTERS,
+			data, { headers: httpHeaders });
+	}
+
+	createBatch(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.BATCHES,
+			data, { headers: httpHeaders });
+	}
+
+	createCourse(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COURSES,
+			data, { headers: httpHeaders });
 	}
 
 	// READ
@@ -49,6 +63,10 @@ export class CoursesService {
 
 	getCourseList(): Observable<any> {
 		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COURSES);
+	}
+
+	getSubjectsList(): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.SUBJECTS);
 	}
 
 	getProductById(productId: number): Observable<ProductModel> {

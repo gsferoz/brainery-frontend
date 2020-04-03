@@ -11,6 +11,12 @@ export class PageConfig {
 				'title': 'Courses',
 				'desc': 'Latest courses and updates'
 			},
+			create: {
+				page: {
+					'title': 'Create Course',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		users: {
 			page: {
@@ -18,16 +24,28 @@ export class PageConfig {
 				'desc': 'Users List'
 			},
 		},
-		coaching_centres: {
+		coaching_center: {
 			page: {
 				'title': 'Coaching Centers',
 				'desc': 'Couching Centers List'
+			},
+			create: {
+				page: {
+					'title': 'Create Coaching Center',
+					'desc': 'Couching Centers List'
+				}
 			},
 		},
 		batches: {
 			page: {
 				'title': 'Batches',
 				'desc': 'Batches List'
+			},
+			create: {
+				page: {
+					'title': 'Create Batch',
+					'desc': 'Couching Centers List'
+				}
 			},
 		},
 		batch_students: {
@@ -42,7 +60,12 @@ export class PageConfig {
 				'desc': 'Locations List'
 			},
 		},
-
+		subjects: {
+			page: {
+				'title': 'Subjects',
+				'desc': 'Locations List'
+			},
+		},
 
 		ngbootstrap: {
 			accordion: {
