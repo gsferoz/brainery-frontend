@@ -27,13 +27,12 @@ export class PageConfigService {
 	/**
 	 * Get current page config based on route
 	 */
-	getCurrentPageConfig(path?: string): any {
+	getCurrentPageConfig(path?: any): any {
 		let configPath = this.cleanUrl(this.router.url);
 
 		if (path) {
-			configPath += '.' + path;
+			configPath = configPath.slice(0, configPath.lastIndexOf('.'));
 		}
-
 		// get page config by path
 		return objectPath.get(this.pageConfig, configPath);
 	}

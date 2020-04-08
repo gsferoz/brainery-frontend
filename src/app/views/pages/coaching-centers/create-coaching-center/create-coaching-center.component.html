@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-12">
         <kt-portlet [class]="'kt-portlet--height-fluid'">
-            <kt-portlet-header [title]="'New Coaching Center'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
+            <kt-portlet-header [title]="isEdit?'Edit Coaching Center':'New Coaching Center'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
                 <ng-container ktPortletTools>
                 </ng-container>
             </kt-portlet-header>
@@ -109,9 +109,19 @@
 						</mat-error>
 					</mat-form-field>
 				</div>
-				<div class="col-lg-4 kt-margin-bottom-20-mobile">
+				<div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="!isEdit">
 					<mat-form-field class="mat-form-field-fluid">
 						<mat-select placeholder="Location Id" formControlName="location_id">
+							<mat-option *ngFor="let location of locationList" [value]="location.id">{{location.name}}</mat-option>
+						</mat-select>
+						<mat-error>Location Id
+							<strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="isEdit">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select placeholder="Location Id" formControlName="location">
 							<mat-option *ngFor="let location of locationList" [value]="location.id">{{location.name}}</mat-option>
 						</mat-select>
 						<mat-error>Location Id

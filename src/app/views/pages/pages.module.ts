@@ -11,14 +11,11 @@ import { CoreModule } from '../../core/core.module';
 // import { ECommerceModule } from './apps/e-commerce/e-commerce.module';
 // import { UserManagementModule } from './user-management/user-management.module';
 import { MyPageComponent } from './my-page/my-page.component';
-import { UsersComponent } from './users/users.component';
 import { BatchStudentsComponent } from './batch-students/batch-students.component';
-import { LocationsComponent } from './locations/locations.component';
 import { MatTableModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, MatPaginatorModule, MatSortModule, MatTooltipModule } from '@angular/material';
-import { SubjectsComponent } from './subjects/subjects.component';
 
 @NgModule({
-	declarations: [MyPageComponent, UsersComponent, BatchStudentsComponent, LocationsComponent, SubjectsComponent],
+	declarations: [MyPageComponent, BatchStudentsComponent],
 	exports: [],
 	imports: [
 		CommonModule,

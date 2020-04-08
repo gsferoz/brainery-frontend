@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { CoursesService } from '../../../core/e-commerce/_services/courses.service';
+import { LayoutUtilsService, MessageType } from './../../../core/_base/crud';
 
 @Component({
   selector: 'kt-subjects',
@@ -18,7 +19,7 @@ export class SubjectsComponent implements OnInit {
 
 	@ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private coursesservice: CoursesService, private ref: ChangeDetectorRef) {
+  constructor(private coursesservice: CoursesService, private ref: ChangeDetectorRef,private layoutUtilsService: LayoutUtilsService) {
 	setInterval(() => {
 		this.ref.markForCheck();
 	  }, 1000);
@@ -40,6 +41,30 @@ export class SubjectsComponent implements OnInit {
 	this.subscriptions.push(coursesubscripition);
   }
 
+  disableSubject(subject, action: string) {
+	const _title: string = action === 'disable' ? 'Disable subject' : 'Enable subject';
+	const _description: string = action === 'disable' ? 'Are you sure to disable this subject?' : 'Are you sure to enable this subject?';
+	const _waitDesciption: string = action === 'disable' ? 'Disabling' : 'Enabling';
+	const _deleteTitle = action === 'disable' ? 'Disable' : 'Enable';
+	const _successMessage = action === 'disable' ? 'Disabled subject' : 'Enabled subject';
+
+	const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption, _deleteTitle);
+	dialogRef.afterClosed().subscribe(res => {
+		if (!res) {
+			return;
+		}
+		const data = JSON.stringify(subject);
+		const datamodified = JSON.parse(data);
+		datamodified.active = !datamodified.active;
+		const datatosend = {
+			"subject" : datamodified
+		}
+		const userdiablesub = this.coursesservice.updateSubject(datatosend).subscribe(data => {
+			this.layoutUtilsService.showActionNotification(_successMessage, MessageType.Delete);
+			this.getSubjectsList();
+		});
+	});
+}
 
   /**
 	 * Returns item status

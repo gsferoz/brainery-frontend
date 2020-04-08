@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { debug } from 'util';
 import { environment } from './../../../../../environments/environment';
+import { Router } from '@angular/router';
 
 
 /**
@@ -13,6 +14,8 @@ import { environment } from './../../../../../environments/environment';
  */
 @Injectable()
 export class InterceptService implements HttpInterceptor {
+
+	constructor(private router: Router) {}
 	// intercept request and add token
 	intercept(
 		request: HttpRequest<any>,
@@ -35,7 +38,7 @@ export class InterceptService implements HttpInterceptor {
 					 if (event instanceof HttpResponse) {
 						// console.log('all looks good');
 						// http response status code
-						// console.log(event.status);
+						// console.log(event);
 					}
 				},
 				error => {
@@ -44,6 +47,9 @@ export class InterceptService implements HttpInterceptor {
 					// console.error('status code:');
 					// tslint:disable-next-line:no-debugger
 					console.error(error.status);
+					if (error.status === 401) {
+						this.router.navigate(['/auth']);
+					}
 					console.error(error.message);
 					// console.log('--- end of response---');
 				}

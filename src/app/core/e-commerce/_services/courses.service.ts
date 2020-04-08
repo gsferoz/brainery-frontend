@@ -40,6 +40,24 @@ export class CoursesService {
 			data, { headers: httpHeaders });
 	}
 
+	createSubjects(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.SUBJECTS,
+			data, { headers: httpHeaders });
+	}
+
+	createLocations(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.LOCATION,
+			data, { headers: httpHeaders });
+	}
+
+	createUser(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.USERS,
+			data, { headers: httpHeaders });
+	}
+
 	// READ
 	getAllCoachingcentres(): Observable<any> {
 		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COACHING_CENTERS);
@@ -69,7 +87,77 @@ export class CoursesService {
 		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.SUBJECTS);
 	}
 
-	getProductById(productId: number): Observable<ProductModel> {
-		return this.http.get<ProductModel>(API_PRODUCTS_URL + `/${productId}`);
+	getRolesList(): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.ROLES);
+	}
+
+	// SHOW
+
+	getUserById(Id: number): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.USERS + `/${Id}`);
+	}
+
+	getBatchById(Id: number): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.BATCHES + `/${Id}`);
+	}
+
+	getCourseById(Id: number): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COURSES + `/${Id}`);
+	}
+
+	getCoachingCenterById(Id: number): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COACHING_CENTERS + `/${Id}`);
+	}
+
+	getLocationById(Id: number): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.LOCATION + `/${Id}`);
+	}
+
+	getSubjectById(Id: number): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.SUBJECTS + `/${Id}`);
+	}
+
+	// Update
+
+	updateCoachingCenter(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		const Id = data.coaching_center.id;
+		return this.http.put<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COACHING_CENTERS + `/${Id}`,
+			data, { headers: httpHeaders });
+	}
+
+	updateUser(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		const Id = data.user.id;
+		return this.http.put<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.USERS + `/${Id}`,
+			data, { headers: httpHeaders });
+	}
+
+	updateCourse(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		const Id = data.course.id;
+		return this.http.put<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COURSES + `/${Id}`,
+			data, { headers: httpHeaders });
+	}
+
+	updateSubject(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		const Id = data.subject.id;
+		return this.http.put<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.SUBJECTS + `/${Id}`,
+			data, { headers: httpHeaders });
+	}
+
+	updateBatch(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		const Id = data.batch.id;
+		return this.http.put<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.BATCHES + `/${Id}`,
+			data, { headers: httpHeaders });
+	}
+
+	updateLocation(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		const Id = data.locations.id;
+		return this.http.put<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.LOCATION + `/${Id}`,
+			data, { headers: httpHeaders });
 	}
 }

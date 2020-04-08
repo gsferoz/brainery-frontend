@@ -9,6 +9,8 @@ import { MatTableModule, MatIconModule, MatButtonModule, MatProgressSpinnerModul
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoursesComponent } from './courses.component';
+import { ActionNotificationComponent, DeleteEntityDialogComponent } from '../../partials/content/crud';
+import { LayoutUtilsService } from './../../../core/_base/crud';
 import { CreateCoursesComponent } from './create-courses/create-courses.component';
 
 @NgModule({
@@ -46,15 +48,22 @@ import { CreateCoursesComponent } from './create-courses/create-courses.componen
 			},
 			{
 				path: 'create',
-				component: CreateCoursesComponent
+				component: CreateCoursesComponent,
+				data: {isEdit: false}
+			},
+			{
+				path: 'edit/:id',
+				component: CreateCoursesComponent,
+				data: {isEdit: true}
 			}
 		]),
 	],
-	providers: [],
+	providers: [LayoutUtilsService],
 	declarations: [
 		CoursesComponent,
 		CreateCoursesComponent
-	]
+	],
+	entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent]
 })
 export class CoursesModule {
 }

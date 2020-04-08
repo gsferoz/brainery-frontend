@@ -17,11 +17,29 @@ export class PageConfig {
 					'desc': 'Couching Centers List'
 				}
 			},
+			edit: {
+				page: {
+					'title': 'Edit Course',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		users: {
 			page: {
 				'title': 'Users',
 				'desc': 'Users List'
+			},
+			create: {
+				page: {
+					'title': 'Create User',
+					'desc': 'Couching Centers List'
+				}
+			},
+			edit: {
+				page: {
+					'title': 'Edit User',
+					'desc': 'Couching Centers List'
+				}
 			},
 		},
 		coaching_center: {
@@ -32,6 +50,12 @@ export class PageConfig {
 			create: {
 				page: {
 					'title': 'Create Coaching Center',
+					'desc': 'Couching Centers List'
+				}
+			},
+			edit: {
+				page: {
+					'title': 'Edit Coaching Center',
 					'desc': 'Couching Centers List'
 				}
 			},
@@ -47,6 +71,12 @@ export class PageConfig {
 					'desc': 'Couching Centers List'
 				}
 			},
+			edit: {
+				page: {
+					'title': 'Edit Batch',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		batch_students: {
 			page: {
@@ -59,11 +89,35 @@ export class PageConfig {
 				'title': 'Locations',
 				'desc': 'Locations List'
 			},
+			create: {
+				page: {
+					'title': 'Create Location',
+					'desc': 'Couching Centers List'
+				}
+			},
+			edit: {
+				page: {
+					'title': 'Edit Location',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		subjects: {
 			page: {
 				'title': 'Subjects',
 				'desc': 'Locations List'
+			},
+			create: {
+				page: {
+					'title': 'Create Subject',
+					'desc': 'Couching Centers List'
+				}
+			},
+			edit: {
+				page: {
+					'title': 'Edit Subject',
+					'desc': 'Couching Centers List'
+				}
 			},
 		},
 

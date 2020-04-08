@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CoursesService } from '../../../core/e-commerce/_services/courses.service';
 import { MatTableDataSource, MatSort } from '@angular/material';
+import { LayoutUtilsService, MessageType } from './../../../core/_base/crud';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class LocationsComponent implements OnInit {
 
 	@ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private coursesservice: CoursesService, private ref: ChangeDetectorRef) {
+  constructor(private coursesservice: CoursesService, private ref: ChangeDetectorRef, private layoutUtilsService: LayoutUtilsService) {
 	setInterval(() => {
 		this.ref.markForCheck();
 	  }, 1000);
@@ -42,6 +43,32 @@ export class LocationsComponent implements OnInit {
 	});
 	this.subscriptions.push(locationsubscripition);
   }
+
+
+  disableLocation(location, action: string) {
+	const _title: string = action === 'disable' ? 'Disable location' : 'Enable location';
+	const _description: string = action === 'disable' ? 'Are you sure to disable this location?' : 'Are you sure to enable this location?';
+	const _waitDesciption: string = action === 'disable' ? 'Disabling' : 'Enabling';
+	const _deleteTitle = action === 'disable' ? 'Disable' : 'Enable';
+	const _successMessage = action === 'disable' ? 'Disabled location' : 'Enabled location';
+
+	const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption, _deleteTitle);
+	dialogRef.afterClosed().subscribe(res => {
+		if (!res) {
+			return;
+		}
+		const data = JSON.stringify(location);
+		const datamodified = JSON.parse(data);
+		datamodified.active = !datamodified.active;
+		const datatosend = {
+			"locations" : datamodified
+		}
+		const userdiablesub = this.coursesservice.updateLocation(datatosend).subscribe(data => {
+			this.layoutUtilsService.showActionNotification(_successMessage, MessageType.Delete);
+			this.getLocations();
+		});
+	});
+}
 
 
   /**

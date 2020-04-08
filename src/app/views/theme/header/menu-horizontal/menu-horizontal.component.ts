@@ -104,11 +104,21 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit, OnDestroy
 		public subheaderService: SubheaderService,
 		public pageconfigService: PageConfigService,
 	) {
-		this.title = this.pageconfigService.getCurrentPageConfig().page.title;
+		const hasNumber = /\d/;
+		if (hasNumber.test(this.router.url.substring(this.router.url.lastIndexOf('/')))) {
+			this.title = this.pageconfigService.getCurrentPageConfig(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)).page.title;
+		} else {
+			this.title = this.pageconfigService.getCurrentPageConfig().page.title;
+		}
 		router.events.subscribe((event: Event) => {
 			if (event instanceof NavigationEnd) {
 				// Hide loading indicator
-				this.title = this.pageconfigService.getCurrentPageConfig().page.title;
+				if (hasNumber.test(this.router.url.substring(this.router.url.lastIndexOf('/')))){
+					this.title = this.pageconfigService.getCurrentPageConfig(this.router.url.substring(this.router.url.lastIndexOf('/') + 1)).page.title;
+				} else {
+					this.title = this.pageconfigService.getCurrentPageConfig().page.title;
+				}
+
 			}
 		});
 	}

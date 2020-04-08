@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { BatchesComponent } from './batches.component';
 import { CreateBatchesComponent } from './create-batches/create-batches.component';
+import { ActionNotificationComponent, DeleteEntityDialogComponent } from '../../partials/content/crud';
+import { LayoutUtilsService } from './../../../core/_base/crud';
 
 @NgModule({
 	imports: [
@@ -46,15 +48,22 @@ import { CreateBatchesComponent } from './create-batches/create-batches.componen
 			},
 			{
 				path: 'create',
-				component: CreateBatchesComponent
+				component: CreateBatchesComponent,
+				data: {isEdit: false}
+			},
+			{
+				path: 'edit/:id',
+				component: CreateBatchesComponent,
+				data: {isEdit: true}
 			}
 		]),
 	],
-	providers: [],
+	providers: [LayoutUtilsService],
 	declarations: [
 		BatchesComponent,
 		CreateBatchesComponent
-	]
+	],
+	entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent]
 })
 export class BatchesModule {
 }

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
+import { ActionNotificationComponent } from './../../../partials/content/crud';
 import { CoursesService } from './../../../../core/e-commerce/_services/courses.service';
+import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'kt-create-coaching-center',
@@ -16,15 +19,24 @@ export class CreateCoachingCenterComponent implements OnInit {
 	viewLoading = false;
 	locationList: any[] = [];
 	courseList: any[] = [];
+	isEdit: boolean;
+	centerId: number;
 
 	private componentSubscriptions: Subscription[] = [];
 
-  constructor(private fb: FormBuilder, private courseservice: CoursesService) { }
+  constructor(private fb: FormBuilder, private courseservice: CoursesService,
+			  public snackBar: MatSnackBar, private route: ActivatedRoute) {
+	const datasub = this.route.data.subscribe(v => {const loadData: any = v; this.isEdit = loadData.isEdit; });
+   }
 
   ngOnInit() {
 	this.getLocationsList();
 	this.getCoursesList();
 	this.createForm();
+	if (this.isEdit) {
+		this.centerId = +this.route.snapshot.paramMap.get('id');
+		this.getCoachingCentre();
+	}
   }
 
   getLocationsList() {
@@ -38,6 +50,16 @@ export class CreateCoachingCenterComponent implements OnInit {
 	const getCoursesubscription = this.courseservice.getCourseList().subscribe(data => {
 		const loadData: any = data.data;
 		this.courseList = loadData;
+	});
+  }
+
+  getCoachingCentre() {
+	const getCoursesubscription = this.courseservice.getCoachingCenterById(this.centerId).subscribe(data => {
+		const loadData: any = data.data;
+		console.log(loadData);
+		this.centerForm.setValue(loadData);
+		this.centerForm.controls.location.setValue(loadData.location.id);
+		this.centerForm.controls.courses.setValue(loadData.courses.map(x => x.id));
 	});
   }
 
@@ -57,6 +79,15 @@ export class CreateCoachingCenterComponent implements OnInit {
 		courses: [[], Validators.compose([Validators.required])],
 	});
 
+	if (this.isEdit) {
+		this.centerForm.addControl('id', new FormControl('', Validators.required));
+		this.centerForm.addControl('address', new FormControl('', Validators.required));
+		this.centerForm.addControl('total_batches', new FormControl('', Validators.required));
+		this.centerForm.removeControl('location_id');
+		this.centerForm.addControl('location', new FormControl(null, Validators.required));
+		this.centerForm.addControl('active', new FormControl('', Validators.required));
+		// this.centerForm.addControl('state', new FormControl('', Validators.required));
+	}
 
 }
 
@@ -72,21 +103,52 @@ export class CreateCoachingCenterComponent implements OnInit {
 	}
 
 	onSubmit() {
+		this.hasFormErrors = false;
+		const controls = this.centerForm.controls;
+		/** check form */
+		if (this.centerForm.invalid) {
+			Object.keys(controls).forEach(controlName =>
+				controls[controlName].markAsTouched()
+			);
+
+			this.hasFormErrors = true;
+			return;
+		}
 		const bodydata = {
 			'coaching_center' : this.centerForm.value
 		}
 		console.log(bodydata);
-		const createCenterSubscriptions =  this.courseservice.createCoachingCenter(bodydata).subscribe(data => {
-			const loadData: any = data;
-			console.log(loadData);
-		})
-		this.componentSubscriptions.push(createCenterSubscriptions);
+		if (this.isEdit) {
+			const createCenterSubscriptions =  this.courseservice.updateCoachingCenter(bodydata).subscribe(data => {
+				const loadData: any = data;
+				console.log(loadData);
+				this.openSnackBar('Center Updated Successfully');
+			})
+			this.componentSubscriptions.push(createCenterSubscriptions);
+		} else {
+			const createCenterSubscriptions =  this.courseservice.createCoachingCenter(bodydata).subscribe(data => {
+				const loadData: any = data;
+				console.log(loadData);
+				this.centerForm.reset();
+				this.openSnackBar('Center Saved Successfully');
+			})
+			this.componentSubscriptions.push(createCenterSubscriptions);
+		}
+
+
 	}
 
 	/** Alect Close event */
 	onAlertClose($event) {
 		this.hasFormErrors = false;
 	}
+
+	openSnackBar(message: string) {
+		this.snackBar.openFromComponent( ActionNotificationComponent , {
+		  data: {message, showUndoButton: false, showCloseButton: true, snackBar: this.snackBar }
+		});
+	  }
+
 
 }
 

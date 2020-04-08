@@ -70,9 +70,9 @@ export class LayoutUtilsService {
 	 * @param description: stirng
 	 * @param waitDesciption: string
 	 */
-	deleteElement(title: string = '', description: string = '', waitDesciption: string = '') {
+	deleteElement(title: string = '', description: string = '', waitDesciption: string = '', deleteData?: string) {
 		return this.dialog.open(DeleteEntityDialogComponent, {
-			data: { title, description, waitDesciption },
+			data: { title, description, waitDesciption, deleteData },
 			width: '440px'
 		});
 	}

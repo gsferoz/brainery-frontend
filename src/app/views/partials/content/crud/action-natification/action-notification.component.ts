@@ -27,6 +27,8 @@ export class ActionNotificationComponent implements OnInit {
 	 * On init
 	 */
 	ngOnInit() {
+		setTimeout(() => this.onDismiss(), 4000);
+
 		if (!this.data.showUndoButton || (this.data.undoButtonDuration >= this.data.duration)) {
 			return;
 		}

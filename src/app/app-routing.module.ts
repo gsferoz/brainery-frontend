@@ -39,20 +39,20 @@ const routes: Routes = [
 				loadChildren: () => import('app/views/pages/courses/courses.module').then(m => m.CoursesModule)
 			},
 			{
+				path: 'subjects',
+				loadChildren: () => import('app/views/pages/subjects/subjects.module').then(m => m.SubjectsModule)
+			},
+			{
+				path: 'locations',
+				loadChildren: () => import('app/views/pages/locations/locations.module').then(m => m.LocationsModule)
+			},
+			{
 				path: 'users',
-				component: UsersComponent
+				loadChildren: () => import('app/views/pages/users/users.module').then(m => m.UsersModule)
 			},
 			{
 				path: 'batch_students',
 				component: BatchStudentsComponent
-			},
-			{
-				path: 'locations',
-				component: LocationsComponent
-			},
-			{
-				path: 'subjects',
-				component: SubjectsComponent
 			},
 			// {
 			// 	path: 'mail',

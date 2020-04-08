@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-xl-12">
         <kt-portlet [class]="'kt-portlet--height-fluid'">
-            <kt-portlet-header [title]="isEdit?'Edit Course':'New Course'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
+            <kt-portlet-header [title]="'New Subject'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
                 <ng-container ktPortletTools>
                 </ng-container>
             </kt-portlet-header>
             <kt-portlet-body [class]="'kt-portlet__body--fit'">
-	<form class="kt-form" [formGroup]="courseForm">
+	<form class="kt-form" [formGroup]="subjectForm">
 		<div class="kt-portlet__body">
 
 			<div class="kt-portlet__body-progress">
@@ -28,8 +28,8 @@
 				</div>
 				<div class="col-lg-6 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter Course Code" formControlName="course_code" />
-						<mat-error>Course code is
+						<input matInput placeholder="Enter Subject Code" formControlName="subject_code" />
+						<mat-error>Subject code is
 							<strong>required</strong>
 						</mat-error>
 					</mat-form-field>
@@ -58,17 +58,10 @@
 			<div class="form-group kt-form__group row">
 				<div class="col-lg-6 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter Course Tagline" formControlName="course_tag_line" />
-						<mat-error>Course Tagline is
+						<input matInput placeholder="Enter Subject Tagline" formControlName="subject_tag_line" />
+						<mat-error>Subject Tagline is
 							<strong>required</strong>
 						</mat-error>
-					</mat-form-field>
-				</div>
-				<div class="col-lg-6 kt-margin-bottom-20-mobile">
-					<mat-form-field>
-						<mat-select placeholder="Subjects" formControlName ="subjects" multiple>
-						<mat-option *ngFor="let subject of subjectList" [value]="subject.id">{{subject.name}}</mat-option>
-						</mat-select>
 					</mat-form-field>
 				</div>
 			</div>
@@ -77,7 +70,7 @@
 			<div class="kt-form__actions kt-form__actions--solid">
 				<div class="row text-right">
 					<div class="col-lg-12">
-						<button type="button" [routerLink]="['/courses']" mat-raised-button matTooltip="Cancel">
+						<button type="button" [routerLink]="['/subjects']" mat-raised-button matTooltip="Cancel">
 							Cancel
 						</button>&nbsp;
 						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" matTooltip="Save">
@@ -93,3 +86,4 @@
 </kt-portlet>
 </div>
 </div>
+

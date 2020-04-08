@@ -7,18 +7,17 @@ import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'kt-create-courses',
-  templateUrl: './create-courses.component.html',
-  styleUrls: ['./create-courses.component.scss']
+  selector: 'kt-create-subjects',
+  templateUrl: './create-subjects.component.html',
+  styleUrls: ['./create-subjects.component.scss']
 })
-export class CreateCoursesComponent implements OnInit {
+export class CreateSubjectsComponent implements OnInit {
 
-	courseForm: FormGroup;
+	subjectForm: FormGroup;
 	hasFormErrors = false;
 	viewLoading = false;
-	subjectList: any[] = [];
 	isEdit: boolean;
-	courseId: number;
+	subjectId: number;
 
 	private componentSubscriptions: Subscription[] = [];
 
@@ -28,51 +27,40 @@ export class CreateCoursesComponent implements OnInit {
 			   }
 
   ngOnInit() {
-	  this.getSubjectList();
-	  this.createForm();
-	  if (this.isEdit) {
-		this.courseId = +this.route.snapshot.paramMap.get('id');
-		this.getCourseData();
+	this.createForm();
+	if (this.isEdit) {
+		this.subjectId = +this.route.snapshot.paramMap.get('id');
+		this.getSubjectData();
 	}
-  }
-
-  getSubjectList() {
-	const getsubjectsubscription = this.courseservice.getSubjectsList().subscribe(data => {
-		const loadData: any = data.data;
-		this.subjectList = loadData;
-	});
   }
 
   createForm() {
-	this.courseForm = this.fb.group({
+	this.subjectForm = this.fb.group({
 		name: ['', Validators.required],
-		course_code: ['', Validators.required],
+		subject_code: ['', Validators.required],
 		description: [ '', Validators.required],
 		prefix: ['', Validators.compose([Validators.required])],
-		course_tag_line: ['', Validators.compose([Validators.required])],
-		subjects: [[], Validators.compose([Validators.required])],
+		subject_tag_line: ['', Validators.compose([Validators.required])],
 		});
-	if (this.isEdit) {
-		this.courseForm.addControl('id', new FormControl(''));
-		this.courseForm.addControl('active', new FormControl(''));
-		this.courseForm.addControl('course_name', new FormControl(''));
-	}
+	this.subjectForm.addControl('id', new FormControl(''));
+	this.subjectForm.addControl('subject_name', new FormControl(''));
+	this.subjectForm.addControl('active', new FormControl(''));
 	}
 
-	getCourseData() {
-		const getBatchsubscription = this.courseservice.getCourseById(this.courseId).subscribe(data => {
+	getSubjectData() {
+		const getBatchsubscription = this.courseservice.getSubjectById(this.subjectId).subscribe(data => {
 			const loadData: any = data.data;
 			console.log(loadData);
-			this.courseForm.setValue(loadData);
-			this.courseForm.controls.subjects.setValue(loadData.subjects.map(x => x.id));
+			this.subjectForm.setValue(loadData);
 		});
 	  }
 
+
 	onSubmit() {
 		this.hasFormErrors = false;
-		const controls = this.courseForm.controls;
+		const controls = this.subjectForm.controls;
 		/** check form */
-		if (this.courseForm.invalid) {
+		if (this.subjectForm.invalid) {
 			Object.keys(controls).forEach(controlName =>
 				controls[controlName].markAsTouched()
 			);
@@ -81,34 +69,35 @@ export class CreateCoursesComponent implements OnInit {
 			return;
 		}
 		const bodydata = {
-			'course' : this.courseForm.value
+			'subject' : this.subjectForm.value
 		}
 		console.log(bodydata);
 		if (this.isEdit) {
-			const createcourseSubscriptions =  this.courseservice.updateCourse(bodydata).subscribe(data => {
+			const createsubjectSubscriptions =  this.courseservice.updateSubject(bodydata).subscribe(data => {
 				const loadData: any = data;
 				console.log(loadData);
-				this.openSnackBar('Course Updated Successfully');
+				this.openSnackBar('Subject Updated Successfully');
 			});
-			this.componentSubscriptions.push(createcourseSubscriptions);
+			this.componentSubscriptions.push(createsubjectSubscriptions);
 		} else {
-			const createcourseSubscriptions =  this.courseservice.createCourse(bodydata).subscribe(data => {
+			const createsubjectSubscriptions =  this.courseservice.createSubjects(bodydata).subscribe(data => {
 				const loadData: any = data;
 				console.log(loadData);
-				this.courseForm.reset();
-				this.openSnackBar('Course Saved Successfully');
+				this.subjectForm.reset();
+				this.openSnackBar('Subject Saved Successfully');
 			});
-			this.componentSubscriptions.push(createcourseSubscriptions);
+			this.componentSubscriptions.push(createsubjectSubscriptions);
 		}
 
 	}
 
-  /**
+
+	 /**
 	 * Check control is invalid
 	 * @param controlName: string
 	 */
 	isControlInvalid(controlName: string): boolean {
-		const control = this.courseForm.controls[controlName];
+		const control = this.subjectForm.controls[controlName];
 		const result = control.invalid && control.touched;
 		return result;
 	}
@@ -123,4 +112,5 @@ export class CreateCoursesComponent implements OnInit {
 		  data: {message, showUndoButton: false, showCloseButton: true, snackBar: this.snackBar }
 		});
 	  }
+
 }

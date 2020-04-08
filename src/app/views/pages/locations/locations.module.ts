@@ -5,11 +5,11 @@ import { CommonModule } from '@angular/common';
 // Core Module
 import { CoreModule } from '../../../core/core.module';
 import { PartialsModule } from '../../partials/partials.module';
-import { CoachingCentersComponent } from './coaching-centers.component';
 import { MatTableModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, MatPaginatorModule, MatSortModule, MatTooltipModule, MatInputModule, MatDatepickerModule, MatAutocompleteModule, MatMenuModule, MatSelectModule, MatRadioModule, MatNativeDateModule, MatProgressBarModule, MatCardModule, MatCheckboxModule, MatSnackBarModule, MatTabsModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CreateCoachingCenterComponent } from './create-coaching-center/create-coaching-center.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { LocationsComponent } from './locations.component';
+import { CreateLocationsComponent } from './create-locations/create-locations.component';
 import { ActionNotificationComponent, DeleteEntityDialogComponent } from '../../partials/content/crud';
 import { LayoutUtilsService } from './../../../core/_base/crud';
 
@@ -44,26 +44,26 @@ import { LayoutUtilsService } from './../../../core/_base/crud';
 		RouterModule.forChild([
 			{
 				path: '',
-				component: CoachingCentersComponent
+				component: LocationsComponent
 			},
 			{
 				path: 'create',
-				component: CreateCoachingCenterComponent,
+				component: CreateLocationsComponent,
 				data: {isEdit: false}
 			},
 			{
 				path: 'edit/:id',
-				component: CreateCoachingCenterComponent,
+				component: CreateLocationsComponent,
 				data: {isEdit: true}
 			}
 		]),
 	],
 	providers: [LayoutUtilsService],
 	declarations: [
-		CoachingCentersComponent,
-		CreateCoachingCenterComponent,
+		LocationsComponent,
+		CreateLocationsComponent
 	],
 	entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent]
 })
-export class CoachingCenterModule {
+export class LocationsModule {
 }

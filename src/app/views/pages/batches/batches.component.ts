@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CoursesService } from '../../../core/e-commerce/_services/courses.service';
 import { MatTableDataSource, MatSort } from '@angular/material';
+import { LayoutUtilsService, MessageType } from './../../../core/_base/crud';
 
 @Component({
   selector: 'kt-batches',
@@ -17,7 +18,7 @@ export class BatchesComponent implements OnInit {
 	dataSource1: MatTableDataSource<any>;
 
 	@ViewChild(MatSort, {static: true}) sort: MatSort;
-  constructor(private ref: ChangeDetectorRef, private coursesservice: CoursesService) {
+  constructor(private ref: ChangeDetectorRef, private coursesservice: CoursesService, private layoutUtilsService: LayoutUtilsService) {
 	setInterval(() => {
 		this.ref.markForCheck();
 	  }, 1000);
@@ -38,6 +39,31 @@ export class BatchesComponent implements OnInit {
 	});
 	this.subscriptions.push(batchessubscripition);
   }
+
+  disableBatch(batch, action: string) {
+	const _title: string = action === 'disable' ? 'Disable batch' : 'Enable batch';
+	const _description: string = action === 'disable' ? 'Are you sure to disable this batch?' : 'Are you sure to enable this batch?';
+	const _waitDesciption: string = action === 'disable' ? 'Disabling' : 'Enabling';
+	const _deleteTitle = action === 'disable' ? 'Disable' : 'Enable';
+	const _successMessage = action === 'disable' ? 'Disabled batch' : 'Enabled batch';
+
+	const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption, _deleteTitle);
+	dialogRef.afterClosed().subscribe(res => {
+		if (!res) {
+			return;
+		}
+		const data = JSON.stringify(batch);
+		const datamodified = JSON.parse(data);
+		datamodified.active = !datamodified.active;
+		const datatosend = {
+			"batch" : datamodified
+		}
+		const userdiablesub = this.coursesservice.updateBatch(datatosend).subscribe(data => {
+			this.layoutUtilsService.showActionNotification(_successMessage, MessageType.Delete);
+			this.getBatchesList();
+		});
+	});
+}
 
 
   /**
