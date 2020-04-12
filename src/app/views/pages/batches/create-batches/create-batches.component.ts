@@ -21,13 +21,18 @@ export class CreateBatchesComponent implements OnInit {
 	courseList: any[] = [];
 	coachingCenterList: any[] = [];
 	isEdit: boolean;
+	isView: boolean;
 	batchId: number;
 
 	private componentSubscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder, private courseservice: CoursesService,
 			 public snackBar: MatSnackBar, private route: ActivatedRoute) {
-				const datasub = this.route.data.subscribe(v => {const loadData: any = v; this.isEdit = loadData.isEdit; });
+				const datasub = this.route.data.subscribe(v => {
+					const loadData: any = v;
+					this.isEdit = loadData.isEdit;
+					this.isView = loadData.isView;
+				});
 			  }
 
   ngOnInit() {
@@ -82,6 +87,9 @@ export class CreateBatchesComponent implements OnInit {
 			this.batchForm.addControl('batch_users', new FormControl(''));
 			this.batchForm.addControl('course', new FormControl(null, Validators.required));
 		}
+	if (this.isView) {
+		this.batchForm.disable();
+	}
 	}
 
 	/**

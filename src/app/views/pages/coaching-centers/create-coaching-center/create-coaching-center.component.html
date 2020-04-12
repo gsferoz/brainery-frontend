@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-12">
         <kt-portlet [class]="'kt-portlet--height-fluid'">
-            <kt-portlet-header [title]="isEdit?'Edit Coaching Center':'New Coaching Center'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
+            <kt-portlet-header [title]="isView ? 'View Coaching Center' :isEdit?'Edit Coaching Center':'New Coaching Center'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
                 <ng-container ktPortletTools>
                 </ng-container>
             </kt-portlet-header>
@@ -145,7 +145,7 @@
 						<button type="button" mat-raised-button [routerLink]="['/coaching_center']" matTooltip="Cancel changes">
 							Cancel
 						</button>&nbsp;
-						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="viewLoading" matTooltip="Save changes">
+						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!isView" matTooltip="Save changes">
 							Save
 						</button>
 					</div>

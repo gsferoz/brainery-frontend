@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xl-12">
         <kt-portlet [class]="'kt-portlet--height-fluid'">
-            <kt-portlet-header [title]="isEdit?'Edit User':'New User'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
+            <kt-portlet-header [title]="isView ? 'View User' : isEdit?'Edit User':'New User'" [class]="'kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm'">
                 <ng-container ktPortletTools>
                 </ng-container>
             </kt-portlet-header>
@@ -20,7 +20,7 @@
 			<div class="form-group kt-form__group row">
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter Email" formControlName="email" />
+						<input matInput placeholder="Enter Email" formControlName="email"/>
 						<mat-error>Email is
 							<strong>required</strong>
 						</mat-error>
@@ -42,6 +42,14 @@
 						</mat-error>
 					</mat-form-field>
 				</div>
+				<div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="isEdit">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Middle Name" formControlName="middle_name" />
+						<mat-error>Middle Name is
+							<strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input matInput placeholder="Enter Last Name" formControlName="last_name" />
@@ -50,15 +58,15 @@
 						</mat-error>
 					</mat-form-field>
 				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="form-group kt-form__group row">
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-radio-group placeholder="Enter Gender" formControlName="gender">
 						<mat-radio-button value="Male">Male</mat-radio-button>
 						<mat-radio-button value="Female">Female</mat-radio-button>
 					  </mat-radio-group>
 				</div>
-			</div>
-			<div class="kt-separator kt-separator--dashed"></div>
-			<div class="form-group kt-form__group row">
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input matInput placeholder="Enter Registration Number" formControlName="registration_number" />
@@ -83,7 +91,11 @@
 						</mat-error>
 					</mat-form-field>
 				</div>
-				<div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="isEdit">
+
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="form-group kt-form__group row">
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
 						<input matInput placeholder="Enter Country" formControlName="country" />
 						<mat-error>Country is
@@ -101,6 +113,16 @@
 						</mat-error>
 					</mat-form-field>
 				</div>
+				<div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="isEdit">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select placeholder="Role Id" formControlName="roles">
+							<mat-option *ngFor="let role of rolesList" [value]="role.id">{{role.name}}</mat-option>
+						</mat-select>
+						<mat-error>Role Id
+							<strong>required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
 			</div>
 		</div>
 		<div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit">
@@ -110,7 +132,7 @@
 						<button type="button" [routerLink]="['/users']" mat-raised-button matTooltip="Cancel">
 							Cancel
 						</button>&nbsp;
-						<button type="button" mat-raised-button color="primary" (click)="onSubmit()" matTooltip="Save">
+						<button type="button" mat-raised-button color="primary" *ngIf="!isView" (click)="onSubmit()" matTooltip="Save">
 							Save
 						</button>
 					</div>

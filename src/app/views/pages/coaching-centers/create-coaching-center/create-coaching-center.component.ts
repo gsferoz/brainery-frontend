@@ -19,6 +19,7 @@ export class CreateCoachingCenterComponent implements OnInit {
 	viewLoading = false;
 	locationList: any[] = [];
 	courseList: any[] = [];
+	isView: boolean;
 	isEdit: boolean;
 	centerId: number;
 
@@ -26,7 +27,11 @@ export class CreateCoachingCenterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private courseservice: CoursesService,
 			  public snackBar: MatSnackBar, private route: ActivatedRoute) {
-	const datasub = this.route.data.subscribe(v => {const loadData: any = v; this.isEdit = loadData.isEdit; });
+	const datasub = this.route.data.subscribe(v => {
+		const loadData: any = v;
+		this.isEdit = loadData.isEdit;
+		this.isView = loadData.isView;
+	});
    }
 
   ngOnInit() {
@@ -72,6 +77,7 @@ export class CreateCoachingCenterComponent implements OnInit {
 		address2: ['', Validators.compose([Validators.required])],
 		city: ['', Validators.compose([Validators.required])],
 		country: ['', Validators.compose([Validators.required])],
+		state: [''],
 		zip_code: ['', Validators.compose([Validators.required])],
 		contact_number: ['', Validators.compose([Validators.required])],
 		land_line_number: ['', Validators.compose([Validators.required])],
@@ -87,6 +93,10 @@ export class CreateCoachingCenterComponent implements OnInit {
 		this.centerForm.addControl('location', new FormControl(null, Validators.required));
 		this.centerForm.addControl('active', new FormControl('', Validators.required));
 		// this.centerForm.addControl('state', new FormControl('', Validators.required));
+	}
+
+	if (this.isView) {
+		this.centerForm.disable();
 	}
 
 }

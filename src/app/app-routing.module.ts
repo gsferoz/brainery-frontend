@@ -13,6 +13,7 @@ import { BatchStudentsComponent } from './views/pages/batch-students/batch-stude
 import { LocationsComponent } from './views/pages/locations/locations.component';
 import { CoursesComponent } from './views/pages/courses/courses.component';
 import { SubjectsComponent } from './views/pages/subjects/subjects.component';
+import { ResetPasswordComponent } from './views/pages/reset-password/reset-password.component';
 
 const routes: Routes = [
 	{path: 'auth', loadChildren: () => import('app/views/pages/auth/auth.module').then(m => m.AuthModule)},
@@ -53,6 +54,10 @@ const routes: Routes = [
 			{
 				path: 'batch_students',
 				component: BatchStudentsComponent
+			},
+			{
+				path: 'reset_password',
+				component: ResetPasswordComponent
 			},
 			// {
 			// 	path: 'mail',

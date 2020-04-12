@@ -49,12 +49,17 @@ import { LayoutUtilsService } from './../../../core/_base/crud';
 			{
 				path: 'create',
 				component: CreateBatchesComponent,
-				data: {isEdit: false}
+				data: {isEdit: false, isView: false}
 			},
 			{
 				path: 'edit/:id',
 				component: CreateBatchesComponent,
-				data: {isEdit: true}
+				data: {isEdit: true, isView: false}
+			},
+			{
+				path: 'view/:id',
+				component: CreateBatchesComponent,
+				data: {isEdit: true, isView: true}
 			}
 		]),
 	],

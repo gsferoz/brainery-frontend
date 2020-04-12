@@ -28,9 +28,6 @@ export class InterceptService implements HttpInterceptor {
 				Authorization: `Bearer ${localStorage.getItem(environment.authTokenKey)}`
 			}
 		});
-		// console.log('----request----');
-		// console.log(request);
-		// console.log('--- end of request---');
 
 		return next.handle(request).pipe(
 			tap(
@@ -48,7 +45,10 @@ export class InterceptService implements HttpInterceptor {
 					// tslint:disable-next-line:no-debugger
 					console.error(error.status);
 					if (error.status === 401) {
+						alert(error.message);
 						this.router.navigate(['/auth']);
+					} else if (error.status === 0) {
+						alert('Server Down');
 					}
 					console.error(error.message);
 					// console.log('--- end of response---');

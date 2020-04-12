@@ -49,12 +49,17 @@ import { CreateCoursesComponent } from './create-courses/create-courses.componen
 			{
 				path: 'create',
 				component: CreateCoursesComponent,
-				data: {isEdit: false}
+				data: {isEdit: false, isView: false}
 			},
 			{
 				path: 'edit/:id',
 				component: CreateCoursesComponent,
-				data: {isEdit: true}
+				data: {isEdit: true, isView: false}
+			},
+			{
+				path: 'view/:id',
+				component: CreateCoursesComponent,
+				data: {isEdit: true, isView: true}
 			}
 		]),
 	],

@@ -18,13 +18,18 @@ export class CreateCoursesComponent implements OnInit {
 	viewLoading = false;
 	subjectList: any[] = [];
 	isEdit: boolean;
+	isView: boolean;
 	courseId: number;
 
 	private componentSubscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder, private courseservice: CoursesService,
 			  public snackBar: MatSnackBar, private route: ActivatedRoute) {
-				const datasub = this.route.data.subscribe(v => {const loadData: any = v; this.isEdit = loadData.isEdit; });
+				const datasub = this.route.data.subscribe(v => {
+					const loadData: any = v;
+					this.isEdit = loadData.isEdit;
+					this.isView = loadData.isView;
+				});
 			   }
 
   ngOnInit() {
@@ -56,6 +61,9 @@ export class CreateCoursesComponent implements OnInit {
 		this.courseForm.addControl('id', new FormControl(''));
 		this.courseForm.addControl('active', new FormControl(''));
 		this.courseForm.addControl('course_name', new FormControl(''));
+	}
+	if (this.isView) {
+		this.courseForm.disable();
 	}
 	}
 

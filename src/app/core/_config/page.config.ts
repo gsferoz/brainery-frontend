@@ -23,6 +23,12 @@ export class PageConfig {
 					'desc': 'Couching Centers List'
 				}
 			},
+			view: {
+				page: {
+					'title': 'View Course',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		users: {
 			page: {
@@ -38,6 +44,12 @@ export class PageConfig {
 			edit: {
 				page: {
 					'title': 'Edit User',
+					'desc': 'Couching Centers List'
+				}
+			},
+			view: {
+				page: {
+					'title': 'View User',
 					'desc': 'Couching Centers List'
 				}
 			},
@@ -59,6 +71,12 @@ export class PageConfig {
 					'desc': 'Couching Centers List'
 				}
 			},
+			view: {
+				page: {
+					'title': 'View Coaching Center',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		batches: {
 			page: {
@@ -77,10 +95,22 @@ export class PageConfig {
 					'desc': 'Couching Centers List'
 				}
 			},
+			view: {
+				page: {
+					'title': 'VIew Batch',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		batch_students: {
 			page: {
 				'title': 'Batch Students',
+				'desc': 'Batch Students List'
+			},
+		},
+		reset_password: {
+			page: {
+				'title': 'Reset Password',
 				'desc': 'Batch Students List'
 			},
 		},
@@ -98,6 +128,12 @@ export class PageConfig {
 			edit: {
 				page: {
 					'title': 'Edit Location',
+					'desc': 'Couching Centers List'
+				}
+			},
+			view: {
+				page: {
+					'title': 'View Location',
 					'desc': 'Couching Centers List'
 				}
 			},

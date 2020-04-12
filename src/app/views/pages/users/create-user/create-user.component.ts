@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { CoursesService } from './../../../../core/e-commerce/_services/courses.service';
 import { ActionNotificationComponent } from './../../../partials/content/crud';
@@ -18,23 +18,27 @@ export class CreateUserComponent implements OnInit {
 	viewLoading = false;
 	rolesList: any = [];
 	isEdit: boolean;
+	isView: boolean;
 	userID: number;
 
 	private componentSubscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder, private courseservice: CoursesService,
 			  public snackBar: MatSnackBar, private route: ActivatedRoute) {
-				const datasub = this.route.data.subscribe(v => {const loadData: any = v; this.isEdit = loadData.isEdit; });
+				const datasub = this.route.data.subscribe(v => {
+					const loadData: any = v;
+					this.isEdit = loadData.isEdit;
+					this.isView = loadData.isView;
+					console.log(this.isView)
+				 });
 			   }
 
   ngOnInit() {
 	this.getRoleList();
+	this.createForm();
 	if (this.isEdit) {
 		this.userID = +this.route.snapshot.paramMap.get('id');
-		this.createEditForm();
 		this.showUserData();
-	  } else {
-		this.createForm();
 	  }
   }
 
@@ -43,33 +47,39 @@ export class CreateUserComponent implements OnInit {
 		email: ['', Validators.compose([Validators.required, Validators.email])],
 		password: ['', Validators.required],
 		first_name: [ '', Validators.required],
+		middle_name: [''],
 		last_name: ['', Validators.compose([Validators.required])],
 		registration_number: ['', Validators.compose([Validators.required])],
 		mobile_number: ['', Validators.compose([Validators.required])],
-		aadhar_number: ['', Validators.compose([Validators.required])],
+		aadhar_number: [''],
 		role_id: [null, Validators.compose([Validators.required])],
+		gender: ['Male', Validators.required],
+		country: ['', Validators.compose([Validators.required])],
+		address1: [''],
+		address2: [''],
+		city: [''],
+		state: [''],
+		zip_code: [''],
+		emergency_contact_no: [''],
+		nationality: [''],
 		});
+
+	if (this.isEdit) {
+		this.userForm.removeControl('password');
+		this.userForm.removeControl('role_id');
+		this.userForm.addControl('full_name', new FormControl(''));
+		this.userForm.addControl('id', new FormControl(''));
+		this.userForm.addControl('active', new FormControl(''));
+		this.userForm.addControl('user_qualifications', new FormControl(''));
+		this.userForm.addControl('roles', new FormControl(null));
+		}
+
+	if (this.isView) {
+		this.userForm.disable();
+	}
 
 	}
 
-	createEditForm() {
-		this.userForm = this.fb.group({
-			email: ['', Validators.compose([Validators.required, Validators.email])],
-			id: [null, Validators.required],
-			gender: ['', Validators.required],
-			first_name: [ '', Validators.required],
-			last_name: ['', Validators.compose([Validators.required])],
-			registration_number: ['', Validators.compose([Validators.required])],
-			mobile_number: ['', Validators.compose([Validators.required])],
-			full_name: ['', Validators.compose([Validators.required])],
-			roles: [[], Validators.compose([Validators.required])],
-			country: ['', Validators.compose([Validators.required])],
-			aadhar_number: ['', Validators.compose([Validators.required])],
-			active: ['', Validators.compose([Validators.required])],
-			user_qualifications: [[], Validators.compose([Validators.required])],
-			});
-
-		}
 
 	getRoleList() {
 		const getrolesubscription = this.courseservice.getRolesList().subscribe(data => {
@@ -83,6 +93,7 @@ export class CreateUserComponent implements OnInit {
 			const loadData: any = data.data;
 			console.log(loadData);
 			this.userForm.setValue(loadData);
+			this.userForm.controls.roles.setValue(loadData.roles[0].id);
 		});
 	  }
 
