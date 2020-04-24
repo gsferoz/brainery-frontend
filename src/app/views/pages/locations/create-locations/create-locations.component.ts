@@ -41,8 +41,10 @@ export class CreateLocationsComponent implements OnInit {
 		district: [ '', Validators.required],
 		state: ['', Validators.compose([Validators.required])],
 		});
-	this.locationForm.addControl('id', new FormControl(''));
-	this.locationForm.addControl('active', new FormControl(''));
+	if (this.isEdit) {
+		this.locationForm.addControl('id', new FormControl(''));
+		this.locationForm.addControl('active', new FormControl(''));
+		}
 	}
 
 	getLocationData() {

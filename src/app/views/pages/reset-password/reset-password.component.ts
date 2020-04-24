@@ -13,9 +13,10 @@ export class ResetPasswordComponent implements OnInit {
 	resetForm: FormGroup;
 	hasFormErrors = false;
 
-  constructor(public snackBar: MatSnackBar, private fb: FormBuilder) { }
+  constructor(public snackBar: MatSnackBar, private fb: FormBuilder) {}
 
   ngOnInit() {
+	  this.createForm();
   }
 
   createForm() {

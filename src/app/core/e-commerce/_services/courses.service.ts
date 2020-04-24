@@ -2,11 +2,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // RxJS
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 // CRUD
-import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '../../_base/crud';
+import { HttpUtilsService } from '../../_base/crud';
 // Models
-import { ProductModel } from '../_models/product.model';
 import { API_ENDPOINT_MAIN_DORMAIN } from './../../_config/index';
 import { apiEnpoints } from '../_consts/constants';
 
@@ -15,7 +14,6 @@ const API_PRODUCTS_URL = 'api/products';
 // Real REST API
 @Injectable()
 export class CoursesService {
-	lastFilter$: BehaviorSubject<QueryParamsModel> = new BehaviorSubject(new QueryParamsModel({}, 'asc', '', 0, 10));
 
 	constructor(private http: HttpClient,
 		private httpUtils: HttpUtilsService) { }
@@ -58,6 +56,24 @@ export class CoursesService {
 			data, { headers: httpHeaders });
 	}
 
+	assignInstructor(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.ASSIGN,
+			data, { headers: httpHeaders });
+	}
+
+	createQualification(data, id): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.QUALIFICATION + '?id=' + id,
+			data, { headers: httpHeaders });
+	}
+
+	createBatchStudents(data): Observable<any> {
+		const httpHeaders = this.httpUtils.getHTTPHeaders();
+		return this.http.post<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.BATCH_STUDENTS,
+			data, { headers: httpHeaders });
+	}
+
 	// READ
 	getAllCoachingcentres(): Observable<any> {
 		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.COACHING_CENTERS);
@@ -69,6 +85,10 @@ export class CoursesService {
 
 	getUsersList(): Observable<any> {
 		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.USERS);
+	}
+
+	getInstructorsList(): Observable<any> {
+		return this.http.get<any>(API_ENDPOINT_MAIN_DORMAIN + apiEnpoints.API_VERSION + apiEnpoints.INSTRUCTOR);
 	}
 
 	getBatchesList(): Observable<any> {

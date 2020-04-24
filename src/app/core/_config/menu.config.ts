@@ -429,6 +429,43 @@ export class MenuConfig {
 					bullet: 'dot',
 				},
 
+				{
+					title: 'Questions Menu',
+					root: true,
+					bullet: 'dot',
+					icon: 'flaticon2-browser-2',
+					submenu: [
+								{
+									title: 'Chapters',
+									page: '/questions/chapters',
+								},
+								{
+									title: 'Topics',
+									page: '/questions/topics'
+								},
+								{
+									title: 'Question Types',
+									page: '/questions/question_types'
+								},
+								{
+									title: 'Questions',
+									page: '/questions/questions_list'
+								},
+								{
+									title: 'Question Sources',
+									page: '/questions/question_source'
+								},
+								{
+									title: 'Question Levels',
+									page: '/questions/question_levels'
+								},
+								{
+									title: 'Exam Types',
+									page: '/questions/exam_types'
+								}
+							]
+				},
+
 				// {
 				// 	title: 'Layout Builder',
 				// 	root: true,

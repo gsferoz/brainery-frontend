@@ -86,12 +86,12 @@ export class CreateCoachingCenterComponent implements OnInit {
 	});
 
 	if (this.isEdit) {
-		this.centerForm.addControl('id', new FormControl('', Validators.required));
-		this.centerForm.addControl('address', new FormControl('', Validators.required));
-		this.centerForm.addControl('total_batches', new FormControl('', Validators.required));
+		this.centerForm.addControl('id', new FormControl(''));
+		this.centerForm.addControl('address', new FormControl(''));
+		this.centerForm.addControl('total_batches', new FormControl(''));
 		this.centerForm.removeControl('location_id');
-		this.centerForm.addControl('location', new FormControl(null, Validators.required));
-		this.centerForm.addControl('active', new FormControl('', Validators.required));
+		this.centerForm.addControl('location', new FormControl(null));
+		this.centerForm.addControl('active', new FormControl(''));
 		// this.centerForm.addControl('state', new FormControl('', Validators.required));
 	}
 

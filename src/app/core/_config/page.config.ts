@@ -77,6 +77,12 @@ export class PageConfig {
 					'desc': 'Couching Centers List'
 				}
 			},
+			assign_instructor: {
+				page: {
+					'title': 'Assign Instructor',
+					'desc': 'Couching Centers List'
+				}
+			},
 		},
 		batches: {
 			page: {
@@ -106,6 +112,54 @@ export class PageConfig {
 			page: {
 				'title': 'Batch Students',
 				'desc': 'Batch Students List'
+			},
+		},
+		questions: {
+			page: {
+				'title': 'Questons',
+				'desc': 'Batch Students List'
+			},
+			chapters: {
+				page: {
+				'title': 'Chapters',
+				'desc': 'Batch Students List'
+				}
+			},
+			topics: {
+				page: {
+				'title': 'Topics',
+				'desc': 'Batch Students List'
+				}
+			},
+			question_levels: {
+				page: {
+				'title': 'Question Levels',
+				'desc': 'Batch Students List'
+				}
+			},
+			questions_list: {
+				page: {
+				'title': 'Questions List',
+				'desc': 'Batch Students List'
+				}
+			},
+			question_source: {
+				page: {
+				'title': 'Question Source',
+				'desc': 'Batch Students List'
+				}
+			},
+			question_types: {
+				page: {
+				'title': 'Question Types',
+				'desc': 'Batch Students List'
+				}
+			},
+			exam_types: {
+				page: {
+				'title': 'Exam Types',
+				'desc': 'Batch Students List'
+				}
 			},
 		},
 		reset_password: {

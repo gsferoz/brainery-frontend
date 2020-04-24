@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActionNotificationComponent, DeleteEntityDialogComponent } from '../../partials/content/crud';
 import { LayoutUtilsService } from './../../../core/_base/crud';
+import { AssignInstructorComponent } from './assign-instructor/assign-instructor.component';
 
 @NgModule({
 	imports: [
@@ -60,6 +61,10 @@ import { LayoutUtilsService } from './../../../core/_base/crud';
 				path: 'view/:id',
 				component: CreateCoachingCenterComponent,
 				data: {isEdit: true, isView: true}
+			},
+			{
+				path: 'assign_instructor',
+				component: AssignInstructorComponent
 			}
 		]),
 	],
@@ -67,6 +72,7 @@ import { LayoutUtilsService } from './../../../core/_base/crud';
 	declarations: [
 		CoachingCentersComponent,
 		CreateCoachingCenterComponent,
+		AssignInstructorComponent,
 	],
 	entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent]
 })

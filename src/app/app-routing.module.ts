@@ -6,13 +6,7 @@ import { BaseComponent } from './views/theme/base/base.component';
 import { ErrorPageComponent } from './views/theme/content/error-page/error-page.component';
 // Auth
 import { AuthGuard } from './core/auth';
-import { UsersComponent } from './views/pages/users/users.component';
-import { CoachingCentersComponent } from './views/pages/coaching-centers/coaching-centers.component';
-import { BatchesComponent } from './views/pages/batches/batches.component';
 import { BatchStudentsComponent } from './views/pages/batch-students/batch-students.component';
-import { LocationsComponent } from './views/pages/locations/locations.component';
-import { CoursesComponent } from './views/pages/courses/courses.component';
-import { SubjectsComponent } from './views/pages/subjects/subjects.component';
 import { ResetPasswordComponent } from './views/pages/reset-password/reset-password.component';
 
 const routes: Routes = [
@@ -50,6 +44,11 @@ const routes: Routes = [
 			{
 				path: 'users',
 				loadChildren: () => import('app/views/pages/users/users.module').then(m => m.UsersModule)
+			},
+
+			{
+				path: 'questions',
+				loadChildren: () => import('app/views/pages/questions/questions.module').then(m => m.QuestionsModule)
 			},
 			{
 				path: 'batch_students',

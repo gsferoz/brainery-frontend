@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { CoursesService } from './../../../../core/e-commerce/_services/courses.service';
 import { ActionNotificationComponent } from './../../../partials/content/crud';
@@ -14,17 +14,19 @@ import { ActivatedRoute } from '@angular/router';
 export class CreateUserComponent implements OnInit {
 
 	userForm: FormGroup;
+	qualificationForm =  new FormArray([]);
 	hasFormErrors = false;
 	viewLoading = false;
 	rolesList: any = [];
 	isEdit: boolean;
 	isView: boolean;
 	userID: number;
+	panelOpenState: boolean = false;
 
 	private componentSubscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder, private courseservice: CoursesService,
-			  public snackBar: MatSnackBar, private route: ActivatedRoute) {
+			           public snackBar: MatSnackBar, private route: ActivatedRoute) {
 				const datasub = this.route.data.subscribe(v => {
 					const loadData: any = v;
 					this.isEdit = loadData.isEdit;
@@ -80,6 +82,30 @@ export class CreateUserComponent implements OnInit {
 
 	}
 
+	createQualificationForm() {
+		const group = new FormGroup({
+			id: new FormControl(null),
+			name: new FormControl('', Validators.required),
+			institute: new FormControl(''),
+			address: new FormControl(''),
+			city: new FormControl(''),
+			state: new FormControl(''),
+			country: new FormControl(''),
+			zip_postal_code: new FormControl(''),
+			start_year: new FormControl(''),
+			end_year: new FormControl(''),
+			specialization: new FormControl(''),
+			current: new FormControl(''),
+			user_id: new FormControl('')
+			});
+
+		this.qualificationForm.push(group);
+
+		if (this.isView) {
+			 this.qualificationForm.disable();
+		 }
+	}
+
 
 	getRoleList() {
 		const getrolesubscription = this.courseservice.getRolesList().subscribe(data => {
@@ -88,19 +114,32 @@ export class CreateUserComponent implements OnInit {
 		});
 	  }
 
+
 	  showUserData() {
 		const showusersub = this.courseservice.getUserById(this.userID).subscribe(data => {
 			const loadData: any = data.data;
 			console.log(loadData);
 			this.userForm.setValue(loadData);
 			this.userForm.controls.roles.setValue(loadData.roles[0].id);
+			this.createQualificationForm();
+			if (loadData.user_qualifications.length > 0) {
+				for (let i = 0; i < loadData.user_qualifications.length - 1; i++) {
+						this.createQualificationForm();
+				}
+				this.qualificationForm.setValue(loadData.user_qualifications);
+			}
 		});
+	  }
+
+	  onDeleteQualification(index) {
+		  this.qualificationForm.removeAt(index);
 	  }
 
 
 	onSubmit() {
 		this.hasFormErrors = false;
 		const controls = this.userForm.controls;
+		console.log(this.userForm)
 		/** check form */
 		if (this.userForm.invalid) {
 			Object.keys(controls).forEach(controlName =>
@@ -130,6 +169,34 @@ export class CreateUserComponent implements OnInit {
 			});
 			this.componentSubscriptions.push(createuserSubscriptions);
 		}
+
+	}
+
+	onQualificationSubmit() {
+		this.hasFormErrors = false;
+		const controls = this.qualificationForm.controls;
+
+		controls.forEach(element => {
+			if (element.invalid) {
+				const c  = element['controls'];
+				Object.keys(c).forEach(controlName =>
+					c[controlName].markAsTouched()
+				);
+			}
+		});
+
+		const bodydata = {
+			'qualifications' : this.qualificationForm.value
+		}
+		console.log(bodydata);
+
+		const createqualificationSubscriptions =  this.courseservice.createQualification(bodydata, this.userForm.controls.id.value).subscribe(data => {
+				const loadData: any = data;
+				console.log(loadData);
+				this.openSnackBar('Qualification Added Successfully');
+			});
+		this.componentSubscriptions.push(createqualificationSubscriptions);
+
 
 	}
 

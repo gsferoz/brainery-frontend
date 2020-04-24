@@ -20,15 +20,18 @@
 			<div class="form-group kt-form__group row">
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter Email" formControlName="email"/>
-						<mat-error>Email is
+						<input matInput placeholder="Enter Email *" formControlName="email"/>
+						<mat-error *ngIf="userForm.controls.email.hasError('required')">Email is
 							<strong>required</strong>
+						</mat-error>
+						<mat-error *ngIf="userForm.controls.email.hasError('email')">Email is
+							<strong>invalid</strong>
 						</mat-error>
 					</mat-form-field>
 				</div>
 				<div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="!isEdit">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput type="password" placeholder="Enter Password" formControlName="password" />
+						<input matInput type="password" placeholder="Enter Password *" formControlName="password" />
 						<mat-error>Password is
 							<strong>required</strong>
 						</mat-error>
@@ -36,7 +39,7 @@
 				</div>
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter First Name" formControlName="first_name" />
+						<input matInput placeholder="Enter First Name *" formControlName="first_name" />
 						<mat-error>First Name is
 							<strong>required</strong>
 						</mat-error>
@@ -52,7 +55,7 @@
 				</div>
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter Last Name" formControlName="last_name" />
+						<input matInput placeholder="Enter Last Name *" formControlName="last_name" />
 						<mat-error>Last Name is
 							<strong>required</strong>
 						</mat-error>
@@ -69,7 +72,7 @@
 				</div>
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter Registration Number" formControlName="registration_number" />
+						<input matInput placeholder="Enter Registration Number *" formControlName="registration_number" />
 						<mat-error>Registration Number
 							<strong>required</strong>
 						</mat-error>
@@ -77,7 +80,7 @@
 				</div>
 				<div class="col-lg-3 kt-margin-bottom-20-mobile">
 					<mat-form-field class="mat-form-field-fluid">
-						<input matInput placeholder="Enter Mobile Number" formControlName="mobile_number" />
+						<input matInput placeholder="Enter Mobile Number *" formControlName="mobile_number" />
 						<mat-error>Mobile Number is
 							<strong>required</strong>
 						</mat-error>
@@ -123,7 +126,56 @@
 						</mat-error>
 					</mat-form-field>
 				</div>
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Address 1" formControlName="address1" />
+					</mat-form-field>
+				</div>
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Address 2" formControlName="address2" />
+					</mat-form-field>
+				</div>
 			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="form-group kt-form__group row">
+
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter City" formControlName="city" />
+					</mat-form-field>
+				</div>
+
+
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter State" formControlName="state" />
+					</mat-form-field>
+				</div>
+
+
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Zip Code" formControlName="zip_code" />
+					</mat-form-field>
+				</div>
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Emergency Contact No" formControlName="emergency_contact_no" />
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="form-group kt-form__group row">
+
+				<div class="col-lg-3 kt-margin-bottom-20-mobile">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Nationality" formControlName="nationality" />
+					</mat-form-field>
+				</div>
+			</div>
+
 		</div>
 		<div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit">
 			<div class="kt-form__actions kt-form__actions--solid">
@@ -142,7 +194,137 @@
 	</form>
 
 </kt-portlet-body>
+<ng-container *ngFor="let qualification of qualificationForm.controls; let i = index;">
+	<mat-accordion *ngIf="isEdit" >
+		<mat-expansion-panel>
+		  <mat-expansion-panel-header>
+			<mat-panel-title>
+			  User Qualification {{i+1}}
+			</mat-panel-title>
+			<mat-panel-description>
+				<button type="button" mat-raised-button color="primary" *ngIf="!isView && i==qualificationForm.controls.length-1" (click)="createQualificationForm()" matTooltip="Save">
+					Add New
+				</button>
+			</mat-panel-description>
+		  </mat-expansion-panel-header>
+		  <form class="kt-form" [formGroup]="qualification">
+			<div class="kt-portlet__body">
+
+				<div class="kt-portlet__body-progress">
+					<mat-spinner [diameter]="20"></mat-spinner>
+				</div>
+
+				<kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
+					Oh snap! Change a few things up and try submitting again.
+				</kt-alert>
+
+				<div class="form-group kt-form__group row">
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter name *" formControlName="name"/>
+							<mat-error>Name is
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter Institute *" formControlName="institute" />
+							<mat-error>Institute is
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="isEdit">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter Address" formControlName="address" />
+							<mat-error>Address is
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter City *" formControlName="city" />
+							<mat-error>City is
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="kt-separator kt-separator--dashed"></div>
+				<div class="form-group kt-form__group row">
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter State" formControlName="state" />
+							<mat-error>State Number
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter Country *" formControlName="country" />
+							<mat-error>Country is
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter Zip Postal Code" formControlName="zip_postal_code" />
+							<mat-error>Zip Postal Code is
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter Specialization" formControlName="specialization" />
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="kt-separator kt-separator--dashed"></div>
+				<div class="form-group kt-form__group row">
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter Start Year" formControlName="start_year" />
+							<mat-error>Start Year is
+								<strong>required</strong>
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 kt-margin-bottom-20-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Enter End Year" formControlName="end_year" />
+						</mat-form-field>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit">
+				<div class="kt-form__actions kt-form__actions--solid">
+					<div class="row text-right">
+						<div class="col-lg-12">
+							<button type="button" color="warn" *ngIf="i!=0" (click)="onDeleteQualification(i)" mat-raised-button matTooltip="Delete">
+								Delete
+							</button>&nbsp;
+							<button type="button" mat-raised-button color="primary" *ngIf="!isView" (click)="onQualificationSubmit()" matTooltip="Save">
+								Save
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		</mat-expansion-panel>
+	  </mat-accordion>
+</ng-container>
+
+
 </kt-portlet>
+
 </div>
 </div>
 

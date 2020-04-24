@@ -61,6 +61,7 @@ import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
 import { CoursesService } from './core/e-commerce/_services/courses.service';
+import { QuestionService } from './core/e-commerce/_services/questions.service';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -124,6 +125,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 		DataTableService,
 		SplashScreenService,
 		CoursesService,
+		QuestionService,
 		{
 			provide: PERFECT_SCROLLBAR_CONFIG,
 			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
